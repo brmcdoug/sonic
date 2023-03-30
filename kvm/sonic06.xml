@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <name>sonic-vs-01</name>
+  <name>sonic06</name>
   <memory unit='KiB'>4096000</memory>
   <currentMemory unit='KiB'>4096000</currentMemory>
   <vcpu placement='static'>1</vcpu>
@@ -25,7 +25,7 @@
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2' cache='writeback'/>
-      <source file='/opt/images/sonic1-vs-srv6.bin'/>
+      <source file='/opt/images/sonic/sonic-srv6-usid-vs-06.img'/>
       <target dev='vda' bus='virtio'/>
       <address type='pci' domain='0x0000' bus='0x01' slot='0x06' function='0x0'/>
     </disk>
@@ -43,34 +43,57 @@
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
     </interface>
-    <interface type='bridge'>
-      <source bridge='vmbr0'/>
+    <interface type='udp'>
+      <source address='127.0.0.1' port='10601'>
+        <local address='127.0.0.1' port='10106'/>
+      </source>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
     </interface>
     <interface type='udp'>
-      <source address='127.0.0.1' port='10111'>
-        <local address='127.0.0.1' port='10112'/>
+      <source address='127.0.0.1' port='10602'>
+        <local address='127.0.0.1' port='10206'/>
       </source>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
     </interface>
     <interface type='udp'>
-      <source address='127.0.0.1' port='10211'>
-        <local address='127.0.0.1' port='10212'/>
+      <source address='127.0.0.1' port='10607'>
+        <local address='127.0.0.1' port='10706'/>
       </source>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x09' function='0x0'/>
     </interface>
+    <interface type='udp'>
+      <source address='127.0.0.1' port='10608'>
+        <local address='127.0.0.1' port='10806'/>
+      </source>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x11' function='0x0'/>
+    </interface>
+    <interface type='udp'>
+      <source address='127.0.0.1' port='10609'>
+        <local address='127.0.0.1' port='10906'/>
+      </source>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x13' function='0x0'/>
+    </interface>
+    <interface type='udp'>
+      <source address='127.0.0.1' port='10610'>
+        <local address='127.0.0.1' port='11006'/>
+      </source>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x15' function='0x0'/>
+    </interface>
     <serial type='tcp'>
-      <source mode='bind' host='127.0.0.1' service='7000'/>
+      <source mode='bind' host='127.0.0.1' service='7006'/>
       <protocol type='telnet'/>
       <target type='isa-serial' port='0'>
         <model name='isa-serial'/>
       </target>
     </serial>
     <console type='tcp'>
-      <source mode='bind' host='127.0.0.1' service='7000'/>
+      <source mode='bind' host='127.0.0.1' service='7006'/>
       <protocol type='telnet'/>
       <target type='serial' port='0'/>
     </console>
