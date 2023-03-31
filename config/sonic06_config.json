@@ -1,0 +1,77 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "sonic06",
+            "type": "LeafRouter",
+            "bgp_asn": "65005"
+        }
+    },
+    "LOOPBACK_INTERFACE": {
+        "Loopback0|10.0.0.6/32": {}
+    },
+    "BGP_NEIGHBOR": {
+        "10.1.1.7": {
+            "rrclient": 0,
+            "name": "sonic01",
+            "local_addr": "10.1.1.6",
+            "nhopself": 0,
+            "holdtime": "180",
+            "asn": "65001",
+            "keepalive": "60"
+        },
+        "10.1.1.15": {
+            "rrclient": 0,
+            "name": "sonic02",
+            "local_addr": "10.1.1.14",
+            "nhopself": 0,
+            "holdtime": "180",
+            "asn": "65002",
+            "keepalive": "60"
+        },
+        "10.1.1.41": {
+            "rrclient": 0,
+            "name": "sonic07",
+            "local_addr": "10.1.1.40",
+            "nhopself": 0,
+            "holdtime": "180",
+            "asn": "65000",
+            "keepalive": "60"
+        },
+        "10.1.1.43": {
+            "rrclient": 0,
+            "name": "sonic08",
+            "local_addr": "10.1.1.42",
+            "nhopself": 0,
+            "holdtime": "180",
+            "asn": "65000",
+            "keepalive": "60"
+        },
+        "10.1.1.45": {
+            "rrclient": 0,
+            "name": "sonic09",
+            "local_addr": "10.1.1.44",
+            "nhopself": 0,
+            "holdtime": "180",
+            "asn": "65000",
+            "keepalive": "60"
+        },
+        "10.1.1.47": {
+            "rrclient": 0,
+            "name": "sonic10",
+            "local_addr": "10.1.1.46",
+            "nhopself": 0,
+            "holdtime": "180",
+            "asn": "65000",
+            "keepalive": "60"
+        }
+    },
+    "DEVICE_NEIGHBOR": {},
+    "INTERFACE": {
+        "Ethernet0|10.1.1.7/31": {},
+        "Ethernet4|10.1.1.15/31": {},
+        "Ethernet8|10.1.1.40/31": {},
+        "Ethernet12|10.1.1.42/31": {},
+        "Ethernet16|10.1.1.44/31": {},
+        "Ethernet20|10.1.1.46/31": {}
+    }
+}
