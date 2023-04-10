@@ -1,6 +1,7 @@
-# sonic
+# sonic-vw
 
-Repo contains kvm xml and config files for launching and running a 12-node sonic-vs CLOS topology.
+This repo contains kvm xml and config files for launching and running a 12-node sonic-vs CLOS topology.
+
 <img src="/diagrams/sonic-vs-clos.png" width="1200">
 
 Instructions:

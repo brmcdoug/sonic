@@ -184,7 +184,7 @@
             "default_pfcwd_status": "disable",
             "hostname": "sonic05",
             "hwsku": "Force10-S6000",
-            "mac": "52:54:00:74:c1:1a",
+            "mac": "52:54:00:74:c1:05",
             "platform": "x86_64-kvm_x86_64-r0",
             "synchronous_mode": "enable",
             "type": "LeafRouter",

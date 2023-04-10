@@ -3,7 +3,7 @@
         "localhost": {
             "hwsku": "Force10-S6000",
             "platform": "x86_64-kvm_x86_64-r0",
-            "mac": "52:54:00:74:c1:1a",
+            "mac": "52:54:00:74:c1:11",
             "hostname": "sonic11",
             "type": "LeafRouter",
             "bgp_asn": "65011",
