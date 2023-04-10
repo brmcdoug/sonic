@@ -1,7 +1,7 @@
 # sonic
 
 Repo contains kvm xml and config files for launching and running a 12-node sonic-vs CLOS topology.
-<img src="/diagrams/sonic-vs-clos.png" width="900">
+<img src="/diagrams/sonic-vs-clos.png" width="1200">
 
 Instructions:
 1. acquire a sonic-vs image
