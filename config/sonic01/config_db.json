@@ -10,6 +10,22 @@
             "docker_routing_config_mode": "split"
         }
     },
+    "LOOPBACK_INTERFACE": {
+        "Loopback0|10.0.0.1/32": {},
+        "Loopback0|fc00:0:1::1/128": {}
+    },
+
+    "INTERFACE": {
+        "Ethernet0|10.1.1.0/31": {},
+        "Ethernet0|fc00::/127": {},
+        "Ethernet4|10.1.1.2/31": {},
+        "Ethernet4|fc00::2/127": {},
+        "Ethernet8|10.1.1.4/31": {},
+        "Ethernet8|fc00::4/127": {},
+        "Ethernet12|10.1.1.6/31": {},
+        "Ethernet12|fc00::6/127": {}
+    },
+    
     "PORT": {
         "Ethernet0": {
             "lanes": "25,26,27,28",
@@ -267,31 +283,6 @@
             "admin_status": "up",
             "mtu": "9100"
         }
-    },
-    "FLEX_COUNTER_TABLE": {
-        "ACL": {
-            "FLEX_COUNTER_STATUS": "disable",
-            "FLEX_COUNTER_DELAY_STATUS": "true",
-            "POLL_INTERVAL": "10000"
-        }
-    },
-    "LOOPBACK_INTERFACE": {
-        "Loopback0|10.0.0.1/32": {},
-        "Loopback0|fc00:0:1::1/128": {}
-    },
-
-    "DEVICE_NEIGHBOR": {},
-
-
-    "INTERFACE": {
-        "Ethernet0|10.1.1.0/31": {},
-        "Ethernet0|fc00::/127": {},
-        "Ethernet4|10.1.1.2/31": {},
-        "Ethernet4|fc00::2/127": {},
-        "Ethernet8|10.1.1.4/31": {},
-        "Ethernet8|fc00::4/127": {},
-        "Ethernet12|10.1.1.6/31": {},
-        "Ethernet12|fc00::6/127": {}
     }
 }
 
