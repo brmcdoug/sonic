@@ -10,6 +10,38 @@
             "docker_routing_config_mode": "split"
         }
     },
+    "LOOPBACK_INTERFACE": {
+        "Loopback0|10.0.0.6/32": {},
+        "Loopback0|fc00:0:6::1/128": {}
+    },
+
+    "INTERFACE": {
+        "Ethernet0": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet4": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet8": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet12": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet16": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet20": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet24": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet28": {
+            "ipv6_use_link_local_only": "enable"
+        }
+    },
+    
     "PORT": {
         "Ethernet0": {
             "lanes": "25,26,27,28",
@@ -267,36 +299,5 @@
             "admin_status": "up",
             "mtu": "9100"
         }
-    },
-    "FLEX_COUNTER_TABLE": {
-        "ACL": {
-            "FLEX_COUNTER_STATUS": "disable",
-            "FLEX_COUNTER_DELAY_STATUS": "true",
-            "POLL_INTERVAL": "10000"
-        }
-    },
-    "LOOPBACK_INTERFACE": {
-        "Loopback0|10.0.0.6/32": {},
-        "Loopback0|fc00:0:6::1/128": {}
-    },
-
-    "DEVICE_NEIGHBOR": {},
-
-
-    "INTERFACE": {
-        "Ethernet0|10.1.1.7/31": {},
-        "Ethernet0|fc00::7/127": {},
-        "Ethernet4|10.1.1.15/31": {},
-        "Ethernet4|fc00::15/127": {},
-        "Ethernet8|10.1.1.40/31": {},
-        "Ethernet8|fc00::40/127": {},
-        "Ethernet12|10.1.1.42/31": {},
-        "Ethernet12|fc00::42/127": {},
-        "Ethernet16|10.1.1.44/31": {},
-        "Ethernet16|fc00::44/127": {},
-        "Ethernet20|10.1.1.46/31": {},
-        "Ethernet20|fc00::46/127": {}
     }
 }
-
-

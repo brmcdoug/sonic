@@ -16,14 +16,30 @@
     },
 
     "INTERFACE": {
-        "Ethernet0|10.1.1.0/31": {},
-        "Ethernet0|fc00::/127": {},
-        "Ethernet4|10.1.1.2/31": {},
-        "Ethernet4|fc00::2/127": {},
-        "Ethernet8|10.1.1.4/31": {},
-        "Ethernet8|fc00::4/127": {},
-        "Ethernet12|10.1.1.6/31": {},
-        "Ethernet12|fc00::6/127": {}
+        "Ethernet0": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet4": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet8": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet12": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet16": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet20": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet24": {
+            "ipv6_use_link_local_only": "enable"
+        },
+        "Ethernet28": {
+            "ipv6_use_link_local_only": "enable"
+        }
     },
     
     "PORT": {
