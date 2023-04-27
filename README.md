@@ -12,8 +12,8 @@ Instructions:
 sudo virsh define sonic01.xml
 sudo virsh start sonic01
 ```
-1. attach to vms via the console port defined in the xml files. 
-   - Example xml:
+4. attach to vms via the console port defined in the xml files. 
+   - Example from sonic01 xml:
 ```
     <console type='tcp'>
       <source mode='bind' host='127.0.0.1' service='8001'/>
@@ -25,9 +25,9 @@ sudo virsh start sonic01
 ```
 telnet localhost 8001
 ```
-1. default user/pw: admin/YourPaSsWoRd
+5. default user/pw: admin/YourPaSsWoRd
 
-2. the xml files create a mgt port attached to linux bridge virbr0, which should allocate a DHCP address for the mgt port IP. Example:
+6. the xml files create a mgt port attached to linux bridge virbr0, which should allocate a DHCP address for the mgt port IP. Example:
 ```
 brmcdoug@naja:~/sonic$ telnet 0 8001
 Trying 0.0.0.0...
@@ -60,11 +60,11 @@ eth0                   192.168.122.116/24   up/up         N/A             N/A
 lo                     127.0.0.1/16         up/up         N/A             N/A
 admin@sonic:~$ 
 ```
-7. ssh to mgt IP and apply configs per the config directory.
+7. ssh to the mgt IP then scp the config files to the sonic instance
 ```
-brmcdoug@naja:~/sonic$ ssh admin@192.168.122.116
-admin@192.168.122.116's password: 
-Linux sonic 5.10.0-18-2-amd64 #1 SMP Debian 5.10.140-1 (2022-09-02) x86_64
+brmcdoug@naja:~/sonic-vs/config/sonic04$ ssh admin@192.168.122.152
+admin@192.168.122.152's password: 
+Linux sonic04 6.1.0-0.deb11.5-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.12-1~bpo11+1 (2023-03-05) x86_64
 You are on
   ____   ___  _   _ _  ____
  / ___| / _ \| \ | (_)/ ___|
@@ -79,33 +79,58 @@ All access and/or use are subject to monitoring.
 
 Help:    https://sonic-net.github.io/SONiC/
 
-Last login: Sun Apr  9 02:00:57 2023
-admin@sonic:~$ sudo config hostname sonic01
-Please note loaded setting will be lost after system reboot. To preserve setting, run `config save`.
-admin@sonic:~$ sudo config save
-Existing files will be overwritten, continue? [y/N]: y
-Running command: /usr/local/bin/sonic-cfggen -d --print-data > /etc/sonic/config_db.json
-admin@sonic:~$ 
-admin@sonic:~$ exit
-logout
-Connection to 192.168.122.116 closed.
-brmcdoug@naja:~/sonic$ ssh admin@192.168.122.116
-admin@192.168.122.116's password: 
-Linux sonic001 5.10.0-18-2-amd64 #1 SMP Debian 5.10.140-1 (2022-09-02) x86_64
-You are on
-  ____   ___  _   _ _  ____
- / ___| / _ \| \ | (_)/ ___|
- \___ \| | | |  \| | | |
-  ___) | |_| | |\  | | |___
- |____/ \___/|_| \_|_|\____|
+Last login: Thu Apr 27 07:00:36 2023 from 192.168.122.1
+```
+```
+scp brmcdoug@192.168.122.1:/home/brmcdoug/sonic-vs/config/sonic04/* .
+```
+```
+admin@sonic04:~$ scp brmcdoug@192.168.122.1:/home/brmcdoug/sonic-vs/config/sonic04/* .
+brmcdoug@192.168.122.1's password: 
+config_db.json   100% 8426     5.5MB/s   00:00    
+frr.conf        100% 2383     3.1MB/s   00:00
+```
+8. Replace the original config files with your new ones:
+```
+sudo mv config_db.json /etc/sonic/
+sudo mv frr.conf /etc/sonic/frr/
+```
+9. reload config:
+```
+sudo config reload
+```
+Output:
+```
+admin@sonic04:~$ sudo config reload
+Clear current config and reload config in config_db format from the default config file(s) ? [y/N]: y
+Disabling container monitoring ...
+Stopping SONiC target ...
+Running command: /usr/local/bin/sonic-cfggen  -j /etc/sonic/init_cfg.json  -j /etc/sonic/config_db.json  --write-to-db
+Running command: /usr/local/bin/db_migrator.py -o migrate
+Running command: /usr/local/bin/sonic-cfggen -d -y /etc/sonic/sonic_version.yml -t /usr/share/sonic/templates/sonic-environment.j2,/etc/sonic/sonic-environment
+Restarting SONiC target ...
+Enabling container monitoring ...
+Reloading Monit configuration ...
+Reinitializing monit daemon
+```
+Note: config reload takes a couple minutes, and interfaces coming up takes a couple minutes more
 
--- Software for Open Networking in the Cloud --
+Handy sonic CLI commands:
+```
+show interfaces status
+show ip interfaces
+show ipv6 interfaces
+```
+Invoke FRR CLI:
+```
+vtysh
+```
+Example:
+```
+admin@sonic04:~$ vtysh
 
-Unauthorized access and/or use are prohibited.
-All access and/or use are subject to monitoring.
+Hello, this is FRRouting (version 8.4-dev).
+Copyright 1996-2005 Kunihiro Ishiguro, et al.
 
-Help:    https://sonic-net.github.io/SONiC/
-
-Last login: Sun Apr  9 02:03:49 2023 from 192.168.122.1
-admin@sonic01:~$ 
+sonic04# 
 ```
