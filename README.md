@@ -62,26 +62,6 @@ admin@sonic:~$
 ```
 7. ssh to the mgt IP then scp the config files to the sonic instance
 ```
-brmcdoug@naja:~/sonic-vs/config/sonic04$ ssh admin@192.168.122.152
-admin@192.168.122.152's password: 
-Linux sonic04 6.1.0-0.deb11.5-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.12-1~bpo11+1 (2023-03-05) x86_64
-You are on
-  ____   ___  _   _ _  ____
- / ___| / _ \| \ | (_)/ ___|
- \___ \| | | |  \| | | |
-  ___) | |_| | |\  | | |___
- |____/ \___/|_| \_|_|\____|
-
--- Software for Open Networking in the Cloud --
-
-Unauthorized access and/or use are prohibited.
-All access and/or use are subject to monitoring.
-
-Help:    https://sonic-net.github.io/SONiC/
-
-Last login: Thu Apr 27 07:00:36 2023 from 192.168.122.1
-```
-```
 scp brmcdoug@192.168.122.1:/home/brmcdoug/sonic-vs/config/sonic04/* .
 ```
 ```
