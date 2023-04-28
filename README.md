@@ -1,8 +1,9 @@
 # sonic-vs
-
 This repo contains kvm xml and config files for launching and running a 12-node sonic-vs CLOS topology as shown in the diagram. The configs leverage BGP unnumbered and have basic SRv6 uSID setup.
 
 <img src="/diagrams/sonic-vs-clos.png" width="1200">
+
+Requirements: 1 vCPU and 4GB memory per vs. The topology in this repo has been tested on an Ubuntu 20.04 host.
 
 Instructions:
 1. acquire a sonic-vs image
@@ -12,7 +13,7 @@ Instructions:
 sudo virsh define sonic01.xml
 sudo virsh start sonic01
 ```
-4. attach to vms via the console port defined in the xml files. 
+1. attach to vms via the console port defined in the xml files. 
    - Example from sonic01 xml:
 ```
     <console type='tcp'>
@@ -25,9 +26,9 @@ sudo virsh start sonic01
 ```
 telnet localhost 8001
 ```
-5. default user/pw: admin/YourPaSsWoRd
+1. default user/pw: admin/YourPaSsWoRd
 
-6. the xml files create a mgt port attached to linux bridge virbr0, which should allocate a DHCP address for the mgt port IP. Example:
+2. the xml files create a mgt port attached to linux bridge virbr0, which should allocate a DHCP address for the mgt port IP. Example:
 ```
 brmcdoug@naja:~/sonic$ telnet 0 8001
 Trying 0.0.0.0...
