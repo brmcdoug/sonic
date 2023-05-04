@@ -1,4 +1,4 @@
-### BGP ip numbered SRv6 L3VPN 
+### Procedure to setup BGP ip numbered SRv6 L3VPN 
 
 1. configure VRF on sonic linux
 ```
@@ -85,4 +85,5 @@ listening on Ethernet4, link-type EN10MB (Ethernet), snapshot length 262144 byte
 
 ### Notes:
 
-1. Bug: any change to vrf IP results in FRR changing the vrf RT export values, thus breaking remote vrf RT imports
+1. Bug: change to sonic/linux vrf IP results in FRR changing the vrf RT export values, thus breaking remote vrf RT imports
+2. Bug: changes to sonic/linux config results in FRR re-adding the route-maps, etc. listed in step 5 above
