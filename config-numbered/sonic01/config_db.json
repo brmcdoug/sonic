@@ -26,12 +26,12 @@
         "Ethernet16": {
             "vrf_name": "Vrf1"
         },
-        "Ethernet16|10.10.101.1/24": {},
+        "Ethernet16|10.101.1.1/24": {},
         "Ethernet16|2001:0:101:1::1/64": {},
         "Ethernet20": {
             "vrf_name": "Vrf2"
         },
-        "Ethernet20|10.10.102.1/24": {},
+        "Ethernet20|10.102.1.1/24": {},
         "Ethernet20|2001:0:102:1::1/64": {},
         "Ethernet24": {},
         "Ethernet28": {}

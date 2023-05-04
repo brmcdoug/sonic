@@ -82,3 +82,7 @@ listening on Ethernet4, link-type EN10MB (Ethernet), snapshot length 262144 byte
 04:51:56.262226 IP6 fc00:0:1::1 > fc00:0:2:6500::: RT6 (len=2, type=4, segleft=0, last-entry=0, tag=0, [0]fc00:0:2:6500::) IP 10.10.101.2 > 10.10.201.1: ICMP echo request, id 6248, seq 1, length 76
 04:51:56.265307 IP6 fc00:0:2::1 > fc00:0:1:6500::: RT6 (len=2, type=4, segleft=0, last-entry=0, tag=0, [0]fc00:0:1:6500::) IP 10.10.201.1 > 10.10.101.2: ICMP echo reply, id 6248, seq 1, length 76
 ```
+
+### Notes:
+
+1. Bug: any change to vrf IP results in FRR changing the vrf RT export values, thus breaking remote vrf RT imports
