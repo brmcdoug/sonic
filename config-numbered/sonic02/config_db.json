@@ -37,6 +37,11 @@
         "Ethernet24": {},
         "Ethernet28": {}
     },
+
+    "VRF": {
+        "Vrf1": {},
+        "Vrf2": {}
+    },
     
     "PORT": {
         "Ethernet0": {
@@ -294,12 +299,6 @@
             "speed": "40000",
             "admin_status": "up",
             "mtu": "9100"
-        },
-        "VRF": {
-            "Vrf1": {}
-        },
-        "VRF": {
-            "Vrf2": {}
         }
     }
 }
