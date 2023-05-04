@@ -1,5 +1,5 @@
 # sonic-vs
-This repo contains kvm xml and config files for launching and running a 12-node sonic-vs CLOS topology as shown in the diagram. The configs leverage BGP unnumbered and have basic SRv6 uSID setup.
+This repo contains kvm xml and config files for launching and running a 12-node sonic-vs CLOS topology as shown in the diagram. There are two sets of router configurations, IPv6/BGP numbered and unnumbered, depending on your preference. The numbered and unnumbered folders contain their own READMEs as well.
 
 <img src="/diagrams/sonic-vs-clos.png" width="1200">
 
@@ -13,7 +13,7 @@ Instructions:
 sudo virsh define sonic01.xml
 sudo virsh start sonic01
 ```
-1. attach to vms via the console port defined in the xml files. 
+4. attach to sonic VMs via the console port defined in the xml files. 
    - Example from sonic01 xml:
 ```
     <console type='tcp'>
@@ -26,9 +26,9 @@ sudo virsh start sonic01
 ```
 telnet localhost 8001
 ```
-1. default user/pw: admin/YourPaSsWoRd
+5. default user/pw: admin/YourPaSsWoRd
 
-2. the xml files create a mgt port attached to linux bridge virbr0, which should allocate a DHCP address for the mgt port IP. Example:
+6. the xml files create a mgt port attached to linux bridge virbr0, which should allocate a DHCP address for the mgt port IP. Example:
 ```
 brmcdoug@naja:~/sonic$ telnet 0 8001
 Trying 0.0.0.0...

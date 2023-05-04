@@ -5,7 +5,7 @@
 sudo config vrf add Vrf1
 sudo config interface vrf bind Ethernet16 Vrf1
 ```
-2. sysctl vrf strict mode settings
+2. apply sysctl vrf strict mode setting
 ```
 admin@sonic01:~$ tail -f /etc/sysctl.conf 
 net.ipv6.conf.eth0.keep_addr_on_down = 1
@@ -23,7 +23,7 @@ net.vrf.strict_mode = 1     <------------
 sudo sysctl -p
 ```
 4. configure frr 
-5. cleanout stuff that frr puts in there by default:
+5. cleanout stuff that frr puts in there by default (hopefully this step won't be required much longer, see Bug note below):
 ```
 no ip prefix-list PL_LoopbackV4 seq 5 permit 10.1.0.1/32
 no route-map RM_SET_SRC6 permit 10
@@ -31,7 +31,7 @@ no route-map RM_SET_SRC permit 10
 no ip protocol bgp route-map RM_SET_SRC
 no ipv6 protocol bgp route-map RM_SET_SRC6
 ```
-6. if necessary fix bgp vpn RT settings
+6. if necessary fix bgp vpn RT settings (same note about Bug)
 ```
 router bgp 65001 vrf Vrf1
  address-family ipv4 unicast
