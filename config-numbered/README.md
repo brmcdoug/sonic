@@ -25,6 +25,7 @@ sudo sysctl -p
 4. configure frr 
 5. cleanout stuff that frr puts in there by default:
 ```
+no ip prefix-list PL_LoopbackV4 seq 5 permit 10.1.0.1/32
 no route-map RM_SET_SRC6 permit 10
 no route-map RM_SET_SRC permit 10
 no ip protocol bgp route-map RM_SET_SRC

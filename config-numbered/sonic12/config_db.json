@@ -3,46 +3,47 @@
         "localhost": {
             "hwsku": "Force10-S6000",
             "platform": "x86_64-kvm_x86_64-r0",
-            "mac": "52:54:00:74:c1:01",
-            "hostname": "sonic01",
+            "mac": "52:54:00:74:c1:12",
+            "hostname": "sonic12",
             "type": "LeafRouter",
-            "bgp_asn": "65001",
+            "bgp_asn": "65012",
             "docker_routing_config_mode": "split"
         }
     },
     "LOOPBACK_INTERFACE": {
-        "Loopback0|10.0.0.1/32": {},
-        "Loopback0|fc00:0:1::1/128": {}
+        "Loopback0|10.0.0.12/32": {},
+        "Loopback0|fc00:0:12::1/128": {}
     },
+
     "INTERFACE": {
         "Ethernet0": {},
-        "Ethernet0|fc00:0:ffff::/127": {},
+        "Ethernet0|fc00:0:ffff::51/127": {},
         "Ethernet4": {},
-        "Ethernet4|fc00:0:ffff::2/127": {},
+        "Ethernet4|fc00:0:ffff::55/127": {},
         "Ethernet8": {},
-        "Ethernet8|fc00:0:ffff::4/127": {},
+        "Ethernet8|fc00:0:ffff::59/127": {},
         "Ethernet12": {},
-        "Ethernet12|fc00:0:ffff::6/127": {},
+        "Ethernet12|fc00:0:ffff::63/127": {},
         "Ethernet16": {
             "vrf_name": "Vrf1"
         },
-        "Ethernet16|10.10.101.1/24": {},
-        "Ethernet16|2001:0:101:1::1/64": {},
+        "Ethernet16|10.12.101.1/24": {},
+        "Ethernet16|2001:12:101:1::1/64": {},
         "Ethernet20": {
             "vrf_name": "Vrf2"
         },
-        "Ethernet20|10.10.102.1/24": {},
-        "Ethernet20|2001:0:102:1::1/64": {},
+        "Ethernet20|10.12.102.1/24": {},
+        "Ethernet20|2001:12:102:1::1/64": {},
         "Ethernet24": {},
         "Ethernet28": {}
     },
-
     "VRF": {
         "Vrf1": {}
     },
     "VRF": {
         "Vrf2": {}
     },
+    
     "PORT": {
         "Ethernet0": {
             "lanes": "25,26,27,28",
@@ -302,5 +303,3 @@
         }
     }
 }
-
-
