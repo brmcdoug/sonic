@@ -1,8 +1,11 @@
 #! /usr/bin python3
 
+# pip3 install scapy
+# sudo python3 srv6-probe-fabric.py
+
 # Set log level to benefit from Scapy warnings
 import logging
-logging.getLogger("scapy").setLevel(1)
+logging.getLogger("scapy").setLevel(0)
 
 from scapy.all import *
 
