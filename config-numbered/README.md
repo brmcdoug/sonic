@@ -30,6 +30,20 @@ no route-map RM_SET_SRC6 permit 10
 no route-map RM_SET_SRC permit 10
 no ip protocol bgp route-map RM_SET_SRC
 no ipv6 protocol bgp route-map RM_SET_SRC6
+
+no bgp community-list standard allow_list_default_community seq 5 permit no-export
+no bgp community-list standard allow_list_default_community seq 10 permit 5060:12345
+no route-map ALLOW_LIST_DEPLOYMENT_ID_0_V4 permit 65535
+no route-map ALLOW_LIST_DEPLOYMENT_ID_0_V6 permit 65535
+no route-map FROM_BGP_PEER_V4 permit 10
+no route-map FROM_BGP_PEER_V4 permit 11
+no route-map FROM_BGP_PEER_V4 permit 100
+no route-map FROM_BGP_PEER_V6 permit 1
+no route-map FROM_BGP_PEER_V6 permit 10
+no route-map FROM_BGP_PEER_V6 permit 11
+no route-map FROM_BGP_PEER_V6 permit 100
+no route-map TO_BGP_PEER_V4 permit 100
+no route-map TO_BGP_PEER_V6 permit 100
 ```
 6. if necessary fix bgp vpn RT settings (same note about Bug)
 ```
