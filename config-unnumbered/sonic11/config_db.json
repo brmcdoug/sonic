@@ -12,7 +12,11 @@
     },
     "LOOPBACK_INTERFACE": {
         "Loopback0|10.0.0.11/32": {},
-        "Loopback0|fc00:0:11::1/128": {}
+        "Loopback0|fc00:0:11::1/128": {},
+        "Loopback1": {
+            "vrf_name": "Vrf1"
+        },
+        "Loopback1|10.11.11.1/32": {}
     },
 
     "INTERFACE": {
