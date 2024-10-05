@@ -6,7 +6,7 @@
 - name: Destroy sonic nodes
   hosts: localhost
   vars_files:
-    - sonic_nodes.yml
+    - sonic_nodes.yaml
   tasks:
     - name: destroy each sonic node
       command: virsh destroy {{ item }}

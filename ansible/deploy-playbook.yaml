@@ -46,7 +46,7 @@
 - name: Start sonic nodes
   hosts: your_target_host
   vars_files:
-    - sonic_nodes.yml
+    - sonic_nodes.yaml
   tasks:
     - name: Start each sonic node
       command: virsh start {{ item }}
