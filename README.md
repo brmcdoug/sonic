@@ -115,3 +115,22 @@ Copyright 1996-2005 Kunihiro Ishiguro, et al.
 
 sonic04# 
 ```
+
+### Notes, caveats:
+
+As of May 15, 2023 SONiC-VS and the FRR implementation have a couple quirks to be aware of:
+
+1.	 L3VPN forwarding requires setting the VRF strict mode sysctl kernel property followed by a config reload:
+```
+net.vrf.strict_mode = 1
+```
+
+2.	FRR also applies some default settings for BGP and RT values after events like reloads, which require cleanup. I’ll discuss these items with the engineering team and see what we can do to correct that. In the meantime:
+
+```
+no ip prefix-list PL_LoopbackV4 seq 5 permit 10.1.0.1/32
+no route-map RM_SET_SRC6 permit 10
+no route-map RM_SET_SRC permit 10
+no ip protocol bgp route-map RM_SET_SRC
+no ipv6 protocol bgp route-map RM_SET_SRC6
+```

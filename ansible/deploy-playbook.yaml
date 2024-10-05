@@ -1,0 +1,57 @@
+---
+
+# ansible-playbook -i hosts deploy-playbook.yml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
+
+---
+      
+- name: topology-host tasks
+  hosts: localhost
+  become: true
+  tasks: 
+
+    - name: destroy kvm default / mgt net
+      command: "virsh net-destroy default"
+      ignore_errors: yes
+    
+    - name: undefine kvm default / mgt net
+      command: "virsh net-undefine default"
+      ignore_errors: yes
+
+    - name: define kvm default / mgt net
+      command: "virsh net-define ../kvm/mgt-net.xml"
+      ignore_errors: yes
+
+    - name: start kvm default / mgt net
+      command: "virsh net-start default"
+      ignore_errors: yes
+
+- name: Define VMs from XML files
+  hosts: localhost
+  tasks:
+    - name: Find XML files in the kvm directory
+      find:
+        paths: ../sonic
+        patterns: "*.xml"
+      register: xml_files
+
+    - name: Define VMs using virsh
+      command: virsh define {{ item.path | basename }}
+      with_items: "{{ xml_files.files }}"
+      when: xml_files.matched > 0
+
+# - name: sonic-vs tasks
+#   hosts: sonic-nodes
+#   become: true
+#   tasks:
+
+#     - name: Copy /etc/environment
+#       copy:
+#         src: "{{ inventory_hostname }}/environment"
+#         dest: "/etc/environment"
+#         mode: 0644
+
+#     - name: swapoff
+#       command: "sudo swapoff -a"
+#       ignore_errors: yes
+
+
