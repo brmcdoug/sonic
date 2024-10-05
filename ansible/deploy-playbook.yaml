@@ -52,19 +52,22 @@
       command: virsh start {{ item }}
       with_items: "{{ sonic_nodes }}"
 
-# - name: sonic-vs tasks
-#   hosts: sonic-nodes
-#   become: true
-#   tasks:
+    - name: pause for 60 seconds to let sonic nodes boot
+      pause:
+        seconds: 60
+      become: false
 
-#     - name: Copy /etc/environment
-#       copy:
-#         src: "{{ inventory_hostname }}/environment"
-#         dest: "/etc/environment"
-#         mode: 0644
+- name: sonic-vs tasks
+  hosts: sonic-nodes
+  become: true
+  tasks:
 
-#     - name: swapoff
-#       command: "sudo swapoff -a"
-#       ignore_errors: yes
+    - name: Copy config_db.json
+      copy:
+        src: "../config_unnumbered/{{ inventory_hostname }}/config_db.json"
+        dest: "/etc/sonic/"
+        mode: 0644
+
+
 
 
