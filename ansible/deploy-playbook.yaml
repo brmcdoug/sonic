@@ -44,12 +44,12 @@
       when: xml_files.matched > 0
 
 - name: Start sonic nodes
-  hosts: your_target_host
+  hosts: localhost
   vars_files:
     - sonic_nodes.yaml
   tasks:
     - name: Start each sonic node
-      command: virsh start {{ item }}
+      command: "virsh start {{ item }}"
       with_items: "{{ sonic_nodes }}"
 
     - name: pause for 60 seconds to let sonic nodes boot
