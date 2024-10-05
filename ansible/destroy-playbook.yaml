@@ -9,11 +9,13 @@
     - sonic_nodes.yaml
   tasks:
     - name: destroy each sonic node
-      command: virsh destroy {{ item }}
+      command: "virsh destroy {{ item }}"
       with_items: "{{ sonic_nodes }}"
+      ignore_errors: yes
 
     - name: Undefine sonic nodes
-      command: virsh undefine {{ item }}
+      command: "virsh undefine {{ item }}"
       with_items: "{{ sonic_nodes }}"
+      ignore_errors: yes
 
 
