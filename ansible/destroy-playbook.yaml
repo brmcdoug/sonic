@@ -1,0 +1,19 @@
+
+# ansible-playbook -i hosts deploy-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
+
+---
+
+- name: Destroy sonic nodes
+  hosts: localhost
+  vars_files:
+    - sonic_nodes.yml
+  tasks:
+    - name: destroy each sonic node
+      command: virsh destroy {{ item }}
+      with_items: "{{ sonic_nodes }}"
+
+    - name: Undefine sonic nodes
+      command: virsh undefine {{ item }}
+      with_items: "{{ sonic_nodes }}"
+
+

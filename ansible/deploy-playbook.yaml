@@ -3,7 +3,7 @@
 
 ---
       
-- name: topology-host tasks
+- name: virsh net tasks
   hosts: localhost
   become: true
   tasks: 
