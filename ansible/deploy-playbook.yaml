@@ -1,6 +1,5 @@
----
 
-# ansible-playbook -i hosts deploy-playbook.yml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
+# ansible-playbook -i hosts deploy-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
 
 ---
       
@@ -30,7 +29,7 @@
   tasks:
     - name: Find XML files in the kvm directory
       find:
-        paths: ../sonic
+        paths: ../kvm
         patterns: "*.xml"
       register: xml_files
 
