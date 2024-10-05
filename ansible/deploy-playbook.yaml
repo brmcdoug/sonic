@@ -43,6 +43,15 @@
       with_items: "{{ xml_files.files }}"
       when: xml_files.matched > 0
 
+- name: Start sonic nodes
+  hosts: your_target_host
+  vars_files:
+    - sonic_nodes.yml
+  tasks:
+    - name: Start each sonic node
+      command: virsh start {{ item }}
+      with_items: "{{ sonic_nodes }}"
+
 # - name: sonic-vs tasks
 #   hosts: sonic-nodes
 #   become: true
