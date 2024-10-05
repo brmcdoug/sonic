@@ -28,7 +28,7 @@
   hosts: localhost
   tasks:
 
-    - name: l s-la
+    - name: ls -la
       command: "ls -la ../kvm"
       ignore_errors: yes
 
@@ -39,7 +39,6 @@
       register: xml_files
 
     - name: Define VMs using virsh
-      paths: ../kvm
       command: virsh define {{ item.path | basename }}
       with_items: "{{ xml_files.files }}"
       when: xml_files.matched > 0
