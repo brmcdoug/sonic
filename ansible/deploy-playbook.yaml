@@ -42,6 +42,7 @@
       command: virsh define ../kvm/{{ item.path | basename }}
       with_items: "{{ xml_files.files }}"
       when: xml_files.matched > 0
+      ignore_errors: yes
 
 - name: Start sonic nodes
   hosts: localhost
