@@ -13,21 +13,32 @@ This repo contains kvm xml and config files for launching and running a sonic-vs
   ```
 
 ### sonic-vs lab instructions:
-1. Acquire a sonic-vs image. The sonic-vs used to develop this lab was a Cisco 8101-32H sonic-vs
-2. Edit the image path in the sonic kvm xml files as needed: [kvm-directory](./kvm/)
+1. Acquire a sonic-vs image. The sonic-vs used to develop this lab was a Cisco 8101-32H emulation
+   
+2. Edit the image path in the sonic kvm xml files as needed, example: https://github.com/brmcdoug/sonic-vs/blob/main/kvm/sonic01.xml#L28
+   
 3. Optional - edit the following files to control the number of nodes you wish to launch:
    [ansible-hosts](./ansible/hosts)
    [sonic-nodes.yaml](./ansible/sonic_nodes.yaml) 
    [mgt-net.xml](./kvm/mgt-net.xml)
 
+#### Ansible scripts
 4. Run the ansible deploy script found here [deploy-playbook.yaml](./ansible/deploy-playbook.yaml)
-   Note: the adjust user/pw credentials as needed. The script will take about 3 minutes to run.
+   Note: adjust user/pw credentials as needed. The script will take about 3 minutes to run.
    ```
    cd ansible
    ansible-playbook -i hosts deploy-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
    ```
 
-5. Once the script completes the sonic-vs nodes should all be up and running the configurations found in the [config-unnumbered](./config-unnumbered/) directory
+5. Once the script completes the sonic-vs nodes should all be up and running using the configurations found in the [config-unnumbered](./config-unnumbered/) directory
+
+   * Note: If you are running the deploy script for the first time please proceed. If you've already run it and wish to make changes then re-run the script, please run the "destroy" script first
+
+   ```
+   # ansible-playbook -i hosts destroy-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
+   ```
+
+   * Note: to switch to numbered config (ie, sonic-vs nodes having IP addresses rather than rely on IPv6 link-local) edit this line in the ansible script: https://github.com/brmcdoug/sonic-vs/blob/main/ansible/deploy-playbook.yaml#L68
 
 6. Test: ssh to sonic01, check interface status
 ```
