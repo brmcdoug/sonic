@@ -69,6 +69,8 @@
         dest: "/etc/sonic/"
         mode: 0644
 
-
+    - name: Reload sonic to set new config
+      command: "sudo config reload -y"
+      ignore_errors: yes
 
 
