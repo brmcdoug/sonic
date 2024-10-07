@@ -55,7 +55,7 @@
 
     - name: pause for 60 seconds to let sonic nodes boot
       pause:
-        seconds: 60
+        seconds: 90
       become: false
 
 - name: sonic-vs tasks

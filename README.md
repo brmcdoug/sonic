@@ -1,19 +1,40 @@
-# sonic-vs
-This repo contains kvm xml and config files for launching and running a 12-node sonic-vs CLOS topology as shown in the diagram. There are two sets of router configurations, IPv6/BGP numbered and unnumbered, depending on your preference. The numbered and unnumbered folders contain their own READMEs as well.
+## sonic-vs
+This repo contains kvm xml and config files for launching and running a sonic-vs CLOS topology as shown in the diagram. Example Ansible scripts are provided to either deploy or destroy the topology. There are also two sets of router configurations, IPv6/BGP numbered and unnumbered, depending on your preference. The numbered and unnumbered folders contain their own READMEs as well.
 
 <img src="/diagrams/sonic-vs-clos.png" width="1200">
 
-Requirements: 1 vCPU and 4GB memory per vs. The topology in this repo has been tested on an Ubuntu 20.04 host.
+### Requirements: 
+* 1 vCPU and 4GB memory per sonic-vs. The topology in this repo has been tested on an Ubuntu 20.04 physical host and 22.04 VM.
+* Ansible, libvirt/qemu, and virsh commands
+  ```
+  sudo apt-add-repository ppa:ansible/ansible
+  sudo apt update
+  apt install ansible bridge-utils qemu-kvm virtinst libvirt-daemon virt-manager -y
+  ```
 
-Instructions:
-1. acquire a sonic-vs image
-2. edit the image path in the sonic kvm xml files as needed
-3. define and launch kvms:
+### sonic-vs lab instructions:
+1. Acquire a sonic-vs image. The sonic-vs used to develop this lab was a Cisco 8101-32H sonic-vs
+2. Edit the image path in the sonic kvm xml files as needed: [kvm-directory](./kvm/)
+3. Optional - edit the [sonic-nodes.yaml](./ansible/sonic_nodes.yaml) file to control the number of nodes you wish to launch
+4. Run the ansible deploy script found here [deploy-playbook.yaml](./ansible/deploy-playbook.yaml)
+   Note: the adjust user/pw credentials as needed
+   ```
+   cd ansible
+   ansible-playbook -i hosts deploy-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
+   ```
+
+5. 
+
+
+### Appendix
+Original/manual deploy instructions:
+
+1. define and launch kvms:
 ```
 sudo virsh define sonic01.xml
 sudo virsh start sonic01
 ```
-4. attach to sonic VMs via the console port defined in the xml files. 
+2. attach to sonic VMs via the console port defined in the xml files. 
    - Example from sonic01 xml:
 ```
     <console type='tcp'>
@@ -26,9 +47,9 @@ sudo virsh start sonic01
 ```
 telnet localhost 8001
 ```
-5. default user/pw: admin/YourPaSsWoRd
+1. default SONiC user/pw: admin/YourPaSsWoRd
 
-6. the xml files create a mgt port attached to linux bridge virbr0, which should allocate a DHCP address for the mgt port IP. Example:
+2. the xml files create a mgt port attached to linux bridge virbr0, which should allocate a DHCP address for the mgt port IP. Example:
 ```
 brmcdoug@naja:~/sonic$ telnet 0 8001
 Trying 0.0.0.0...
