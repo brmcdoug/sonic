@@ -25,14 +25,14 @@ This repo contains kvm xml and config files for launching and running a sonic-vs
    [mgt-net.xml](./kvm/mgt-net.xml)
 
 #### Ansible scripts
-4. Run the ansible deploy script found here [deploy-playbook.yaml](./ansible/deploy-playbook.yaml)
+5. Run the ansible deploy script found here [deploy-playbook.yaml](./ansible/deploy-playbook.yaml)
    Note: adjust user/pw credentials as needed. The script will take about 3 minutes to run.
    ```
    cd ansible
    ansible-playbook -i hosts deploy-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
    ```
 
-5. Once the script completes the sonic-vs nodes should all be up and running using the configurations found in the [config-unnumbered](./config-unnumbered/) directory
+6. Once the script completes the sonic-vs nodes should all be up and running using the configurations found in the [config-unnumbered](./config-unnumbered/) directory
 
    * Note: If you are running the deploy script for the first time please proceed. If you've already run it and wish to make changes then re-run the script, please run the "destroy" script first
 
@@ -42,7 +42,7 @@ This repo contains kvm xml and config files for launching and running a sonic-vs
 
    * Note: to switch to numbered config (ie, sonic-vs nodes having IP addresses rather than rely on IPv6 link-local) edit this line in the ansible script: https://github.com/brmcdoug/sonic-vs/blob/main/ansible/deploy-playbook.yaml#L68
 
-6. Test: ssh to sonic01, check interface status
+7. Test: ssh to sonic01, check interface status
 ```
 ssh cisco@192.168.122.101
 
@@ -100,7 +100,7 @@ eth0                   192.168.122.101/24   up/up         N/A             N/A
 lo                     127.0.0.1/16         up/up         N/A             N/A
 ```
 
-7. While still on sonic01, invoke vtysh to access FRR
+8. While still on sonic01, invoke vtysh to access FRR
 ```
 vtysh
 ```
@@ -115,7 +115,7 @@ Copyright 1996-2005 Kunihiro Ishiguro, et al.
 sonic01# 
 ```
 
-8. Run some FRR CLI commands:
+9. Run some FRR CLI commands:
 ```
 show run
 show int brief
