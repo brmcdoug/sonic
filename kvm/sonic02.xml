@@ -88,7 +88,7 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x17' function='0x0'/>
     </interface>
     <interface type='bridge'>
-      <source bridge='k8s-wkr-node012'/>
+      <source bridge='k8s-wkr-node02'/>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x19' function='0x0'/>
     </interface>
