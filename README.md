@@ -15,9 +15,11 @@ This repo contains kvm xml and config files for launching and running a sonic-vs
 ### sonic-vs lab instructions:
 1. Acquire a sonic-vs image. The sonic-vs used to develop this lab was a Cisco 8101-32H emulation
    
-2. Edit the image path in the sonic kvm xml files as needed, example: https://github.com/brmcdoug/sonic-vs/blob/main/kvm/sonic01.xml#L28
+2. Make copies of the image to align with the number of nodes you intend to launch
    
-3. Optional - edit the following files to control the number of nodes you wish to launch:
+3. Edit the image path in the sonic kvm xml files to match the path and filenames you've given your image copies, example: https://github.com/brmcdoug/sonic-vs/blob/main/kvm/sonic01.xml#L28
+   
+4. Optional - edit the following files to control the number of nodes you wish to launch:
    [ansible-hosts](./ansible/hosts)
    [sonic-nodes.yaml](./ansible/sonic_nodes.yaml) 
    [mgt-net.xml](./kvm/mgt-net.xml)
