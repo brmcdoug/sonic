@@ -34,10 +34,10 @@ This repo contains kvm xml and config files for launching and running a sonic-vs
 
 6. Once the script completes the sonic-vs nodes should all be up and running using the configurations found in the [config-unnumbered](./config-unnumbered/) directory
 
-   * Note: If you are running the deploy script for the first time please proceed. If you've already run it and wish to make changes then re-run the script, please run the "destroy" script first
+   * If you are running the deploy script for the first time please proceed. If you've already run it and wish to make changes then re-run the script, please run the "destroy" script first
 
    ```
-   # ansible-playbook -i hosts destroy-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
+   ansible-playbook -i hosts destroy-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
    ```
 
    * Note: to switch to numbered config (ie, sonic-vs nodes having IP addresses rather than rely on IPv6 link-local) edit this line in the ansible script: https://github.com/brmcdoug/sonic-vs/blob/main/ansible/deploy-playbook.yaml#L68
