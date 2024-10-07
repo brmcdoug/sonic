@@ -53,9 +53,9 @@
       command: "virsh start {{ item }}"
       with_items: "{{ sonic_nodes }}"
 
-    - name: pause for 90 seconds to let sonic nodes boot
+    - name: pause for 120 seconds to let sonic nodes boot
       pause:
-        seconds: 90
+        seconds: 120
       become: false
 
 - name: sonic-vs tasks
