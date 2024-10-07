@@ -3,7 +3,7 @@
 
 ---
       
-- name: virsh net tasks
+- name: topology host network tasks
   hosts: localhost
   become: true
   tasks: 
@@ -22,6 +22,10 @@
 
     - name: start kvm default / mgt net
       command: "virsh net-start default"
+      ignore_errors: yes
+
+    - name: create linux bridge instances
+      command: "sudo ../util/add-bridges.sh"
       ignore_errors: yes
 
 - name: Define VMs from XML files
