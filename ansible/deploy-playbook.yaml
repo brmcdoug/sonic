@@ -73,4 +73,21 @@
       command: "sudo config reload -y"
       ignore_errors: yes
 
+    - name: Create a backup of the existing FRR file
+      command: mv /etc/sonic/frr/bgpd.conf /etc/sonic/frr/bgpd.conf.bak
+      args:
+        creates: /etc/sonic/frr/bgpd.conf.bak
+      ignore_errors: yes
+      register: backup_result
+
+    - name: Copy frr config files
+      copy:
+        src: "../config-unnumbered/{{ inventory_hostname }}/frr.conf"
+        dest: "/etc/sonic/frr/bgpd.conf"
+        mode: 0644
+
+    # - name: Load the FRR config through vtysh
+    #   command: vtysh -f /etc/sonic/frr/bgpd.conf
+    #   ignore_errors: yes
+    #   register: frr_load_result
 
