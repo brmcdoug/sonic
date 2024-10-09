@@ -42,6 +42,11 @@
         "Ethernet28": {}
     },
 
+    "VLAN": {
+        "Vlan14": {
+            "vlanid": "14"
+        }
+    },
     "VLAN_INTERFACE": {
         "Vlan14": {},
         "Vlan14|10.14.1.1/24": {}
