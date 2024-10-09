@@ -42,6 +42,19 @@
         "Ethernet28": {}
     },
 
+    "VLAN_INTERFACE": {
+        "Vlan14": {},
+        "Vlan14|10.14.1.1/24": {}
+    },
+    "VLAN_MEMBER": {
+        "Vlan14|Ethernet24": {
+            "tagging_mode": "untagged"
+        },
+        "Vlan14|Ethernet28": {
+            "tagging_mode": "untagged"
+        }
+    },
+
     "VRF": {
         "Vrf1": {},
         "Vrf2": {}
