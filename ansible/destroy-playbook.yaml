@@ -19,7 +19,8 @@
       ignore_errors: yes
 
     - name: delete linux bridge instances
-      command: "sudo ../util/del-bridges.sh"
+      command: "../util/del-bridges.sh"
+      become: true
       ignore_errors: yes
 
 
