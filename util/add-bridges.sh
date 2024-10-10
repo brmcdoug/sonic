@@ -1,7 +1,7 @@
 #!/bin/bash
 
  brctl addbr sonic01-16
-brctl addbr sonic01-20
+ brctl addbr sonic01-20
  brctl addbr sonic02-16
  brctl addbr sonic02-20
  brctl addbr k8s-cp-node00
