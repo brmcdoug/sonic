@@ -1,13 +1,13 @@
 virsh_define:
-  - sonic01.xml
-  - sonic02.xml
-  - sonic03.xml
-  - sonic04.xml
-  - sonic05.xml
-  - sonic06.xml
-  - sonic07.xml
-  - sonic08.xml
-  # - sonic09.xml
-  # - sonic10.xml
-  # - sonic11.xml
-  # - sonic12.xml
+  - ../kvm/sonic01.xml
+  - ../kvm/sonic02.xml
+  - ../kvm/sonic03.xml
+  - ../kvm/sonic04.xml
+  - ../kvm/sonic05.xml
+  - ../kvm/sonic06.xml
+  - ../kvm/sonic07.xml
+  - ../kvm/sonic08.xml
+  # - ../kvm/sonic09.xml
+  # - ../kvm/sonic10.xml
+  # - ../kvm/sonic11.xml
+  # - ../kvm/sonic12.xml
