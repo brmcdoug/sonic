@@ -7,7 +7,7 @@ virsh_define:
   - ../kvm/sonic06.xml
   - ../kvm/sonic07.xml
   - ../kvm/sonic08.xml
-  # - ../kvm/sonic09.xml
-  # - ../kvm/sonic10.xml
-  # - ../kvm/sonic11.xml
-  # - ../kvm/sonic12.xml
+  - ../kvm/sonic09.xml
+  - ../kvm/sonic10.xml
+  - ../kvm/sonic11.xml
+  - ../kvm/sonic12.xml

@@ -1,0 +1,7 @@
+virsh_define:
+  - ../kvm/sonic01.xml
+  - ../kvm/sonic02.xml
+  - ../kvm/sonic03.xml
+  - ../kvm/sonic04.xml
+  - ../kvm/sonic05.xml
+  - ../kvm/sonic06.xml

@@ -1,38 +1,66 @@
 ## sonic-vs
-This repo contains kvm xml and config files for launching and running a sonic-vs CLOS topology as shown in the diagram. Example Ansible scripts are provided to either deploy or destroy the topology. There are also two sets of router configurations, IPv6/BGP numbered and unnumbered, depending on your preference. The numbered and unnumbered folders contain their own READMEs as well.
+This repo contains a set of sonic-vs network scenarios including ansible scripts, kvm xml, and config files for launching and running the topologies found in [diagrams](./diagrams/). The each project folder contains ansible scripts to deploy or destroy the topology. There are also two sets of router configurations, IPv6/BGP numbered and unnumbered, depending on your preference. The numbered and unnumbered folders contain their own READMEs as well.
 
-<img src="/diagrams/sonic-vs-clos.png" width="1200">
+### Contents
+* Sonic-vs [LINK](#sonic-vs)
+* Requirements [LINK](#requirements)
+* Deploy a topology [LINK](#deploy-a-topology)
+  * Ansible deploy script [LINK](#ansible-deploy-script)
+  * 
+
+Example topology:
+<img src="/diagrams/sonic-vs-2-tier-small-clos.png" width="1200">
 
 ### Requirements: 
-* 1 vCPU and 4GB memory per sonic-vs. The topology in this repo has been tested on an Ubuntu 20.04 physical host and 22.04 VM.
-* Ansible, libvirt/qemu, and virsh commands
+* 1 vCPU and 4GB memory per sonic-vs. The topologies in this repo has been tested on Ubuntu 20.04 and 22.04 both physical host and 22.04 VMs
+  
+* If running this in your own lab please install ansible, and libvirt/qemu packages
   ```
   sudo apt-add-repository ppa:ansible/ansible
   sudo apt update
   apt install ansible bridge-utils qemu-kvm virtinst libvirt-daemon virt-manager -y
   ```
 
-### sonic-vs lab instructions:
-1. Acquire a sonic-vs image. The sonic-vs used to develop this lab was a Cisco 8101-32H emulation
-   
-2. Make copies of the image to align with the number of nodes you intend to launch
-   
-3. Edit the image path in the sonic kvm xml files to match the path and filenames you've given your image copies, example: https://github.com/brmcdoug/sonic-vs/blob/main/kvm/sonic01.xml#L28
-   
-4. Optional - edit the following files to control the number of nodes you wish to launch:
-   [ansible-hosts](./ansible/hosts)
-   [sonic-nodes.yaml](./ansible/sonic_nodes.yaml) 
-   [mgt-net.xml](./kvm/mgt-net.xml)
+### Deploy a topology:
+1. Acquire a sonic-vs image. The sonic-vs used to develop this lab was a Cisco 8101-32H emulation image
 
-#### Ansible scripts
-5. Run the ansible deploy script found here [deploy-playbook.yaml](./ansible/deploy-playbook.yaml)
+2. Decide which project you would like to launch:
+   [Two-tier-small](./1-two-tier-small-clos/)
+   [Two-tier-rail-optimized](./2-two-tier-rail-optimized/)
+   [Three-tier-clos](./3-three-tier-clos/)  
+
+   Or use one of the three projects as a template to construct you own topology
+
+3. Make copies of the image to align with the project/number of nodes you intend to launch, example:
+```
+cisco@topology-host:~$ ls -la images/sonic-vs/
+total 32670776
+drwxrwxr-x 2 cisco cisco       4096 Oct 19 18:14 .
+drwx------ 3 cisco cisco       4096 Oct 19 18:23 ..
+-rw-rw-r-- 1 cisco cisco 2787901440 Oct 19 18:11 sonic-vs-c8101-32h-202311-01.img
+-rw-rw-r-- 1 cisco cisco 2787901440 Oct 19 18:12 sonic-vs-c8101-32h-202311-02.img
+-rw-rw-r-- 1 cisco cisco 2787901440 Oct 19 18:12 sonic-vs-c8101-32h-202311-03.img
+-rw-rw-r-- 1 cisco cisco 2787901440 Oct 19 18:12 sonic-vs-c8101-32h-202311-04.img
+-rw-rw-r-- 1 cisco cisco 2787901440 Oct 19 18:13 sonic-vs-c8101-32h-202311-05.img
+-rw-rw-r-- 1 cisco cisco 2787901440 Oct 19 18:13 sonic-vs-c8101-32h-202311-06.img
+```
+
+4. If necessary edit the image path in the sonic kvm xml files to match the path and filenames you've given your image copies, [Example](./1-two-tier-small-clos/kvm/sonic01.xml#L28)
+
+#### Ansible deploy script
+
+1. cd into your chosen project directory, then into its ansible sub-directory. 
+```
+
+```
+2. Then run the ansible deploy script found [example](./ansible/deploy-playbook.yaml)
    Note: adjust user/pw credentials as needed. The script will take about 3 minutes to run.
    ```
    cd ansible
    ansible-playbook -i hosts deploy-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
    ```
 
-6. Once the script completes the sonic-vs nodes should all be up and running using the configurations found in the [config-unnumbered](./config-unnumbered/) directory
+3. Once the script completes the sonic-vs nodes should all be up and running using the configurations found in the [config-unnumbered](./config-unnumbered/) directory
 
    * If you are running the deploy script for the first time please proceed. If you've already run it and wish to make changes then re-run the script, please run the "destroy" script first
 
@@ -42,7 +70,7 @@ This repo contains kvm xml and config files for launching and running a sonic-vs
 
    * Note: to switch to numbered config (ie, sonic-vs nodes having IP addresses rather than rely on IPv6 link-local) edit this line in the ansible script: https://github.com/brmcdoug/sonic-vs/blob/main/ansible/deploy-playbook.yaml#L68
 
-7. Test: ssh to sonic01, check interface status
+4. Test: ssh to sonic01, check interface status
 ```
 ssh cisco@192.168.122.101
 

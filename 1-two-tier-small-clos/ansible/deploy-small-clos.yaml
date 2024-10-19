@@ -1,0 +1,82 @@
+
+# ansible-playbook -i hosts deploy-small-clos.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
+
+---
+      
+- name: topology host network tasks
+  hosts: localhost
+  become: true
+  tasks: 
+
+    - name: destroy kvm default / mgt net
+      command: "virsh net-destroy default"
+      ignore_errors: yes
+    
+    - name: undefine kvm default / mgt net
+      command: "virsh net-undefine default"
+      ignore_errors: yes
+
+    - name: define kvm default / mgt net
+      command: "virsh net-define ../kvm/mgt-net.xml"
+      ignore_errors: yes
+
+    - name: start kvm default / mgt net
+      command: "virsh net-start default"
+      ignore_errors: yes
+
+    - name: create linux bridge instances
+      command: "sudo ../util/add-bridges.sh"
+      ignore_errors: yes
+
+- name: Define VMs from XML files
+  hosts: localhost
+  vars_files:
+    - virsh_define.yaml
+  tasks:
+    - name: Define each sonic node
+      command: "virsh define {{ item }}"
+      with_items: "{{ virsh_define }}"
+      
+- name: Start sonic nodes
+  hosts: localhost
+  vars_files:
+    - sonic_nodes.yaml
+  tasks:
+    - name: Start each sonic node
+      command: "virsh start {{ item }}"
+      with_items: "{{ sonic_nodes }}"
+
+    - name: pause for 120 seconds to let sonic nodes boot
+      pause:
+        seconds: 120
+      become: false
+
+- name: sonic-vs tasks
+  hosts: sonic-nodes
+  become: true
+  tasks:
+
+    - name: Copy config_db.json
+      copy:
+        src: "../config-unnumbered/{{ inventory_hostname }}/config_db.json"
+        dest: "/etc/sonic/"
+        mode: 0644
+
+    - name: Reload sonic to set new config
+      command: "sudo config reload -y"
+      ignore_errors: yes
+
+    - name: Create a backup of the existing FRR file
+      command: mv /etc/sonic/frr/bgpd.conf /etc/sonic/frr/bgpd.conf.bak
+      args:
+        creates: /etc/sonic/frr/bgpd.conf.bak
+      ignore_errors: yes
+      register: backup_result
+
+    - name: Copy frr config files
+      copy:
+        src: "../config-unnumbered/{{ inventory_hostname }}/frr.conf"
+        dest: "/etc/sonic/frr/bgpd.conf"
+        mode: 0644
+
+
