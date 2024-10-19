@@ -35,7 +35,7 @@ Example topology:
 ```
 ssh cisco@198.18.133.100
 ```
-   * Note: all user/pw combinations in this project are `*cisco/cisco123*`
+   * Note: all user/pw combinations in this project are *`cisco/cisco123`*
 
 6. Make copies of your base sonic-vs image to align with the project/number of nodes you intend to launch. In this example the base image has been copied 6 times to match the small clos topology:
 ```

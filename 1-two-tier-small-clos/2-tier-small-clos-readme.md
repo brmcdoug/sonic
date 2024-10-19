@@ -17,7 +17,7 @@ Topology:
 cd 1-two-tier-small-clos/ansible/
 ```
 
-2. Determine whether you would like to deploy using `*IP/BGP numbered or unnumbered*`. The scripts default to unnumbered. If you wish to run `*IP/BGP numbered*` edit the following lines in the deploy script:
+2. Determine whether you would like to deploy using *`IP/BGP numbered or unnumbered`*. The scripts default to unnumbered. If you wish to run *`IP/BGP numbered`* edit the following lines in the deploy script:
 
 [Line 1](./ansible/deploy-small-clos.yaml#L61)
 [Line 2](./ansible/deploy-small-clos.yaml#L78)
