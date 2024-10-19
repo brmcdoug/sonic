@@ -6,13 +6,14 @@ Instructions to deploy and work with the 2-tier small clos project
   - [Contents](#contents)
   - [Ansible deploy script](#ansible-deploy-script)
   - [Verify nodes](#verify-nodes)
+    - [Management IP table](#management-ip-table)
 
 Topology:
-<img src="/diagrams/sonic-vs-2-tier-small-clos.png" width="1200">
+<img src="/diagrams/sonic-vs-2-tier-small-clos.png" width="800">
 
 ### Ansible deploy script
 
-1. On your host or VM cd into your chosen project directory, then into its ansible sub-directory. Example: 
+1. On your host or VM *`cd`* into your chosen project directory, then into its ansible sub-directory. Example: 
 ```
 cd 1-two-tier-small-clos/ansible/
 ```
@@ -20,6 +21,7 @@ cd 1-two-tier-small-clos/ansible/
 2. Determine whether you would like to deploy using *`IP/BGP numbered or unnumbered`*. The scripts default to unnumbered. If you wish to run *`IP/BGP numbered`* edit the following lines in the deploy script:
 
 [Line 1](./ansible/deploy-small-clos.yaml#L61)
+
 [Line 2](./ansible/deploy-small-clos.yaml#L78)
 
 3. Run the ansible deploy script
@@ -30,7 +32,9 @@ cd 1-two-tier-small-clos/ansible/
    ansible-playbook -i hosts deploy-small-clos.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
    ```
 
-4. Once the script completes the sonic-vs nodes should all be up and running using the configurations found in the chosen config directory. Example [config-unnumbered](./config-unnumbered/) 
+### Verify nodes
+
+1. Once the script completes the sonic-vs nodes should all be up and running using the configurations found in the chosen config directory. Example [config-unnumbered](./config-unnumbered/) 
 
    * If you are running the deploy script for the first time please proceed. If you've already run it and wish to make changes then re-run the script, please run the "destroy" script first
 
@@ -39,7 +43,7 @@ cd 1-two-tier-small-clos/ansible/
    ```
   * Note: the deploy script will automatically assign management IPs to each node per the [kvm-mgt-net.xml](./kvm/mgt-net.xml) file
 
-### Verify nodes
+#### Management IP table
 
 | SONiC VS Node  | Mgt Ip             |
 |:---------------|:-------------------|
@@ -50,7 +54,7 @@ cd 1-two-tier-small-clos/ansible/
 | sonic05        | 192.168.122.105    |
 | sonic06        | 192.168.122.106    |
 
-1. Ssh to each node, check interface and IP status. Example:
+2. Ssh to each node, check interface and IP status. Example:
 
 ```
 ssh cisco@192.168.122.101

@@ -51,7 +51,7 @@ drwx------ 3 cisco cisco       4096 Oct 19 18:23 ..
 -rw-rw-r-- 1 cisco cisco 2787901440 Oct 19 18:13 sonic-vs-c8101-32h-202311-06.img
 ```
 
-1. If necessary edit the image path in the sonic kvm xml files to match the path and filenames you've given your image copies, [Example](./1-two-tier-small-clos/kvm/sonic01.xml#L28)
+7. If necessary edit the image path in the sonic kvm xml files to match the path and filenames you've given your image copies, [Example](./1-two-tier-small-clos/kvm/sonic01.xml#L28)
 
 ### Proceed to deploy topology
 
