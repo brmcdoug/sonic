@@ -11,7 +11,7 @@ https://github.com/scurvy-dog/sonic-dcloud/blob/main/1-SONiC_101/sonic_cli_refer
   - [Global Commands](#global-commands)
     - [show version](#show-version)
     - [Other global commands](#other-global-commands)
-  - [Configuration Commands](#configuration-commands)
+  - [Config Management Commands](#config-management-commands)
     - [config load](#config-load)
     - [config save](#config-save)
     - [config reload](#config-reload)
@@ -28,8 +28,18 @@ https://github.com/scurvy-dog/sonic-dcloud/blob/main/1-SONiC_101/sonic_cli_refer
     - [show vlan brief](#show-vlan-brief)
     - [show vlan config](#show-vlan-config)
     - [show lldp table](#show-lldp-table)
-  - [Routing Protocols](#routing-protocols)
-    - [BGP Commands](#bgp-commands)
+    - [show runningconfiguration](#show-runningconfiguration)
+  - [Global configuration](#global-configuration)
+    - [config hostname](#config-hostname)
+  - [Interface configuration](#interface-configuration)
+    - [config interface ip add](#config-interface-ip-add)
+    - [config interface ip add Loopback](#config-interface-ip-add-loopback)
+    - [config portchannel add \[PortChannel#\]](#config-portchannel-add-portchannel)
+    - [config portchannel add \[PortChannel#\] \[Ethernet#\]](#config-portchannel-add-portchannel-ethernet)
+    - [config interface ip add \[PortChannel#\] \[ip addr\]](#config-interface-ip-add-portchannel-ip-addr)
+    - [config vlan add \[vlan#\]](#config-vlan-add-vlan)
+    - [config vlan member add \[vlan#\] \[Ethernet#\]](#config-vlan-member-add-vlan-ethernet)
+    - [config interface ip add \[Vlan#\] \[ip addr\]](#config-interface-ip-add-vlan-ip-addr)
   
 ## Global Commands
 
@@ -70,7 +80,7 @@ show runningconfiguration
 crm show resources all
 ```
 
-## Configuration Commands
+## Config Management Commands
 
 ### config load
 Load the */etc/sonic/config_db.json* file into the Redis database
@@ -171,16 +181,77 @@ Provides lldp neighbor adjacency info
 show lldp table
 ```
 
+### show runningconfiguration 
+Show various aspects of the running configuration
+```
+show runningconfiguration all
+show runningconfiguration bgp
+show runningconfiguration interfaces
+etc.
+```
+
+## Global configuration
+
+### config hostname
+Add or modify the node hostname
+```
+sudo config hostname [hostname]
+```
+
+## Interface configuration
+
+### config interface ip add
+Adding an IP address to an interface
+```
+sudo config interface ip add Ethernet0 10.1.1.1/31
+sudo config interface ip add Ethernet0 fc00:0::1/127
+```
+
+### config interface ip add Loopback
+Adding a loopback interface and IP
+```
+sudo config interface ip add Loopback0 10.0.0.1/32
+sudo config interface ip add Loopback0 fc00:0:1::1/128
+
+sudo config interface ip add Loopback1 10.0.1.1/32
+```
+
+### config portchannel add [PortChannel#]
+Adding a portchannel
 ```
 sudo config portchannel add PortChannel1
 ```
 
-
-## Routing Protocols
-
-### BGP Commands
-
-Show BGP configuration
+### config portchannel add [PortChannel#] [Ethernet#]
+Add an interface as a portchannel member
 ```
-show runningconfiguration bgp
+sudo config portchannel member add PortChannel1 Ethernet8
+sudo config portchannel member add PortChannel1 Ethernet12
+```
+
+### config interface ip add [PortChannel#] [ip addr]
+Adding IP addresses to portchannel interfaces
+```
+sudo config interface ip add PortChannel1 10.1.1.0/31
+sudo config interface ip add PortChannel1 fc00:0:ffff::/127
+```
+
+### config vlan add [vlan#]
+Adding a vlan
+```
+sudo config vlan add 10
+```
+
+### config vlan member add [vlan#] [Ethernet#]
+Add an interface as a vlan member or access port
+```
+sudo config vlan member add 10 Ethernet28
+sudo config vlan member add 10 Ethernet32
+```
+
+### config interface ip add [Vlan#] [ip addr]
+Configure vlan IP addresses
+```
+sudo config interface ip add Vlan10 10.10.1.1/24
+sudo config interface ip add Vlan10 fc00:0:ffff:10::1/64
 ```
