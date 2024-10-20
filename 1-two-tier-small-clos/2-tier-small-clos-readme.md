@@ -175,37 +175,77 @@ ping fc00:0:3::1
    ```
    ssh cisco@192.168.122.101
    ```
-2. Configure *Loopback0* and add IPv4 and IPv6
+
+2. Configure hostname
+   ```
+   sudo config hostname sonic01
+   ```
+3. Configure *Loopback0* and add IPv4 and IPv6
    ```
    sudo config interface ip add Loopback0 10.0.0.1/32
    sudo config interface ip add Loopback0 fc00:0:1::1/128
    ```
-3. Configure Ethernet interface from *sonic01* to *endpoint01*
+4. Configure Ethernet interface from *sonic01* to *endpoint01*
    ```
    sudo config interface ip add Ethernet16 198.18.1.1/24
    ```
-4. Create vlan 10 
+5. Create vlan 10 
    ```
-   sudo config vlan add Vlan10
+   sudo config vlan add 10
 
    ```
-5.  Configure vlan interfaces
+6.  Configure vlan interfaces
     ```
-    sudo config vlan member add Vlan10 Ethernet28
-    sudo config vlan member add Vlan10 Ethernet28
+    sudo config vlan member add 10 Ethernet28
+    sudo config vlan member add 10 Ethernet32
     ```
-6. Configure vlan IP addresses
+7. Configure vlan IP addresses
    ```
    sudo config interface ip add Vlan10 10.10.1.1/24
    sudo config interface ip add Vlan10 fc00:0:ffff:10::1/64
    ```
 
-7. Save configuration
+8. Verify configs
+```
+show vlan brief
+show vlan config
+show ip interfaces
+```
+
+Example output:
+```
+cisco@sonic:~$ show vlan brief
++-----------+--------------+------------+----------------+-------------+-----------------------+
+|   VLAN ID | IP Address   | Ports      | Port Tagging   | Proxy ARP   | DHCP Helper Address   |
++===========+==============+============+================+=============+=======================+
+|        10 |              | Ethernet28 | tagged         | disabled    |                       |
+|           |              | Ethernet32 | tagged         |             |                       |
++-----------+--------------+------------+----------------+-------------+-----------------------+
+cisco@sonic:~$ sudo config interface ip add Vlan10 10.10.1.1/24
+cisco@sonic:~$ sudo config interface ip add Vlan10 fc00:0:ffff:10::1/64
+cisco@sonic:~$ show vlan config
+Name      VID  Member      Mode
+------  -----  ----------  ------
+Vlan10     10  Ethernet28  tagged
+Vlan10     10  Ethernet32  tagged
+cisco@sonic:~$ show ip int
+Interface    Master    IPv4 address/mask    Admin/Oper    BGP Neighbor    Neighbor IP
+-----------  --------  -------------------  ------------  --------------  -------------
+Ethernet16             198.18.1.1/24        up/up         N/A             N/A
+Loopback0              10.0.0.1/32          up/up         N/A             N/A
+Vlan10                 10.10.1.1/24         up/up         N/A             N/A
+docker0                240.127.1.1/24       up/down       N/A             N/A
+eth0                   192.168.122.101/24   up/up         N/A             N/A
+lo                     127.0.0.1/16         up/up         N/A             N/A
+cisco@sonic:~$ 
+```
+
+8. Save configuration
    ```
-   sudo config save
+   sudo config save -y
    ```
 
-8. Validate sonic01 config_db configuration
+9.  Validate sonic01 config_db configuration
 ```
 show runningconfiguration all
 
