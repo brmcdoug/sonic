@@ -6,7 +6,7 @@
             "mac": "52:54:00:74:c1:05",
             "hostname": "sonic05",
             "type": "LeafRouter",
-            "bgp_asn": "65005",
+            "bgp_asn": "65000",
             "docker_routing_config_mode": "split"
         }
     },
@@ -20,24 +20,6 @@
             "ipv6_use_link_local_only": "enable"
         },
         "Ethernet4": {
-            "ipv6_use_link_local_only": "enable"
-        },
-        "Ethernet8": {
-            "ipv6_use_link_local_only": "enable"
-        },
-        "Ethernet12": {
-            "ipv6_use_link_local_only": "enable"
-        },
-        "Ethernet16": {
-            "ipv6_use_link_local_only": "enable"
-        },
-        "Ethernet20": {
-            "ipv6_use_link_local_only": "enable"
-        },
-        "Ethernet24": {
-            "ipv6_use_link_local_only": "enable"
-        },
-        "Ethernet28": {
             "ipv6_use_link_local_only": "enable"
         }
     },

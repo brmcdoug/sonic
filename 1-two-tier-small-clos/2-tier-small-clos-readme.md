@@ -8,7 +8,10 @@ Instructions to deploy and work with the 2-tier small clos project
   - [Verify nodes and interfaces](#verify-nodes-and-interfaces)
     - [Management IP table](#management-ip-table)
   - [SONiC FRR vtysh](#sonic-frr-vtysh)
-  - [Configure sonic01 and sonic03 with SONiC CLI](#configure-sonic01-and-sonic03-with-sonic-cli)
+  - [Configure leaf sonic01 interfaces and vlan with SONiC CLI](#configure-leaf-sonic01-interfaces-and-vlan-with-sonic-cli)
+  - [Configure FRR BGP on leaf node sonic01](#configure-frr-bgp-on-leaf-node-sonic01)
+  - [Configure spine sonic03 interfaces SONiC CLI](#configure-spine-sonic03-interfaces-sonic-cli)
+  - [Configure FRR BGP on sonic03](#configure-frr-bgp-on-sonic03)
 
 Topology:
 <img src="/diagrams/sonic-vs-2-tier-small-clos.png" width="800">
@@ -147,7 +150,7 @@ show bgp ipv6 unicast
 ping fc00:0:3::1
 ```
 
-### Configure sonic01 and sonic03 with SONiC CLI
+### Configure leaf sonic01 interfaces and vlan with SONiC CLI
 
 1. Ssh into *sonic01*
    ```
@@ -162,27 +165,94 @@ ping fc00:0:3::1
    ```
    sudo config interface ip add Ethernet16 198.18.1.1/24
    ```
-4. Create Port Channels to *sonic-rtr-spine-1* and *sonic-rtr-spine-2*
+4. Create vlan 10 
    ```
-   sudo config portchannel add PortChannel1
-   sudo config portchannel add PortChannel2
+   sudo config vlan add Vlan10
+
    ```
-5.  Configure Port Channel interface members
+5.  Configure vlan interfaces
     ```
-    sudo config portchannel member add PortChannel1 Ethernet0
-    sudo config portchannel member add PortChannel1 Ethernet4
-    sudo config portchannel member add PortChannel2 Ethernet8
-    sudo config portchannel member add PortChannel2 Ethernet12
+    sudo config vlan member add Vlan10 Ethernet28
+    sudo config vlan member add Vlan10 Ethernet28
     ```
-6. Configure Port Channel IPs
+6. Configure vlan IP addresses
    ```
-   sudo config interface ip add PortChannel1 10.1.1.0/31
-   sudo config interface ip add PortChannel2 10.1.1.2/31
-   sudo config interface ip add PortChannel1 fc00:0:ffff::/127
-   sudo config interface ip add PortChannel2 fc00:0:ffff::2/127
+   sudo config interface ip add Vlan10 10.10.1.1/24
+   sudo config interface ip add Vlan10 fc00:0:ffff:10::1/64
    ```
 
 7. Save configuration
    ```
    sudo config save
    ```
+
+8. Validate sonic01 config_db configuration
+```
+show runningconfiguration all
+
+or
+
+cat /etc/sonic/config_db.json
+```
+
+### Configure FRR BGP on leaf node sonic01 
+
+1. Invoke vtysh and enter configuration mode
+```
+vtysh
+
+conf t
+```
+
+2. Copy the config from [sonic01-frr](./config-unnumbered/sonic01/frr.conf). Paste the config into the FRR CLI
+
+3. Validate config and BGP peering
+```
+show run
+show bgp summary
+show bgp ipv4 unicast
+```
+
+### Configure spine sonic03 interfaces SONiC CLI
+
+1. Ssh into *sonic03*
+   ```
+   ssh cisco@192.168.122.103
+   ```
+2. Configure *Loopback0* and add IPv4 and IPv6
+   ```
+   sudo config interface ip add Loopback0 10.0.0.3/32
+   sudo config interface ip add Loopback0 fc00:0:3::1/128
+   ```
+
+3. Save configuration
+   ```
+   sudo config save
+   ```
+
+4. Validate sonic03 config_db configuration
+```
+show runningconfiguration all
+
+or
+
+cat /etc/sonic/config_db.json
+```
+
+### Configure FRR BGP on sonic03
+
+1. Invoke vtysh and enter configuration mode
+```
+vtysh
+
+conf t
+```
+
+2. Copy the config from [sonic03-frr](./config-unnumbered/sonic03/frr.conf). Paste the config into the FRR CLI
+
+3. Validate config and BGP peering
+```
+show run
+show bgp summary
+show bgp ipv4 unicast
+```
