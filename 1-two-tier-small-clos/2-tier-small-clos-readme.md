@@ -10,7 +10,7 @@ Instructions to deploy and work with the 2-tier small clos project
   - [SONiC FRR vtysh](#sonic-frr-vtysh)
   - [Configure leaf sonic01 interfaces and vlan with SONiC CLI](#configure-leaf-sonic01-interfaces-and-vlan-with-sonic-cli)
   - [Configure FRR BGP on leaf node sonic01](#configure-frr-bgp-on-leaf-node-sonic01)
-  - [Configure spine sonic03 interfaces SONiC CLI](#configure-spine-sonic03-interfaces-sonic-cli)
+  - [Configure sonic03 interfaces via SONiC CLI](#configure-sonic03-interfaces-via-sonic-cli)
   - [Configure FRR BGP on sonic03](#configure-frr-bgp-on-sonic03)
 
 Topology:
@@ -32,6 +32,24 @@ cd 1-two-tier-small-clos/ansible/
 3. Run the ansible deploy script. Note, the script will launch and configure three of the spine nodes and one of the leaf nodes, leaving sonic01 and sonic03 unconfigured. This guide will walk thru configuring them via the SONiC and FRR CLIs
    
    Note: adjust user/pw credentials as needed. The script will take about 3 minutes to run.
+
+   Note: if running the lab on your own host/VM you may need to update the local .ssh/config file to allow ssh without host key checking:
+   ```
+    cisco@topology-host:~$ more .ssh/config 
+    host 198.18.133.*
+    StrictHostKeyChecking no 
+    UserKnownHostsFile /dev/null 
+    HostkeyAlgorithms +ssh-rsa
+    PubkeyAcceptedAlgorithms +ssh-rsa
+
+    host 192.168.122.*
+    StrictHostKeyChecking no 
+    UserKnownHostsFile /dev/null 
+    HostkeyAlgorithms +ssh-rsa
+    PubkeyAcceptedAlgorithms +ssh-rsa
+   ```
+   
+   Run the ansible deploy script:
    ```
    cd ansible
    ansible-playbook -i hosts deploy-small-clos.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
@@ -214,7 +232,7 @@ show bgp summary
 show bgp ipv4 unicast
 ```
 
-### Configure spine sonic03 interfaces SONiC CLI
+### Configure sonic03 interfaces via SONiC CLI
 
 1. Ssh into *sonic03*
    ```
