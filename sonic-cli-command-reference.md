@@ -1,8 +1,8 @@
 # SONiC CLI Command Reference
 ## Description: 
-This page is a work-in-progress SONiC CLI command reference. Expect updates to be added from time to time.
-With thanks to:
-https://github.com/scurvy-dog/sonic-dcloud/blob/main/1-SONiC_101/sonic_cli_reference.md
+This page is a partial SONiC CLI command reference. Expect updates to be added from time to time.
+The full SONiC-Net CLI command reference can be found here:
+https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md
 
 ## Contents
 - [SONiC CLI Command Reference](#sonic-cli-command-reference)
