@@ -8,6 +8,7 @@ Instructions to deploy and work with the 2-tier small clos project
   - [Verify nodes and interfaces](#verify-nodes-and-interfaces)
     - [Management IP table](#management-ip-table)
   - [SONiC FRR vtysh](#sonic-frr-vtysh)
+- [Configure sonic-rtr-leaf-1 with SONiC CLI](#configure-sonic-rtr-leaf-1-with-sonic-cli)
 
 Topology:
 <img src="/diagrams/sonic-vs-2-tier-small-clos.png" width="800">
@@ -25,7 +26,7 @@ cd 1-two-tier-small-clos/ansible/
 
 [Line 2](./ansible/deploy-small-clos.yaml#L78)
 
-3. Run the ansible deploy script
+3. Run the ansible deploy script. Note, the script will launch and configure three of the spine nodes and one of the leaf nodes, leaving sonic01 and sonic03 unconfigured. This guide will walk thru configuring them via the SONiC CLI
    
    Note: adjust user/pw credentials as needed. The script will take about 3 minutes to run.
    ```
@@ -55,10 +56,10 @@ cd 1-two-tier-small-clos/ansible/
 | sonic05        | 192.168.122.105    |
 | sonic06        | 192.168.122.106    |
 
-2. Ssh to each node, check interface and IP status. Example:
+2. Noting that sonic01 and sonic03 have not been configured yet, ssh to each of the other nodes and check interface and IP status. Example:
 
 ```
-ssh cisco@192.168.122.101
+ssh cisco@192.168.122.102
 
 show interfaces status
 show ip interfaces 
@@ -66,7 +67,7 @@ show ip interfaces
 
 Example output:
 ```
-cisco@sonic01:~$ show interfaces status
+cisco@sonic02:~$ show interfaces status
   Interface                Lanes    Speed    MTU    FEC        Alias    Vlan    Oper    Admin    Type    Asym PFC
 -----------  -------------------  -------  -----  -----  -----------  ------  ------  -------  ------  ----------
   Ethernet0  2304,2305,2306,2307     100G   9100    N/A    Ethernet0  routed      up       up     N/A         N/A
@@ -101,9 +102,8 @@ Ethernet112      524,525,526,527     100G   9100    N/A  Ethernet112  routed    
 Ethernet116      776,777,778,779     100G   9100    N/A  Ethernet116  routed      up       up     N/A         N/A
 Ethernet120      516,517,518,519     100G   9100    N/A  Ethernet120  routed      up       up     N/A         N/A
 Ethernet124      528,529,530,531     100G   9100    N/A  Ethernet124  routed      up       up     N/A         N/A
-cisco@sonic01:~$ 
-cisco@sonic01:~$ 
-cisco@sonic01:~$ show ip interfaces
+cisco@sonic02:~$ 
+cisco@sonic02:~$ show ip interfaces
 Interface    Master    IPv4 address/mask    Admin/Oper    BGP Neighbor    Neighbor IP
 -----------  --------  -------------------  ------------  --------------  -------------
 Ethernet16   Vrf1      10.101.1.1/24        up/up         N/A             N/A
@@ -118,9 +118,9 @@ lo                     127.0.0.1/16         up/up         N/A             N/A
 Per https://github.com/sonic-net/sonic-frr/blob/master/doc/user/vtysh.rst
 vtysh provides a combined frontend to all FRR daemons in a single combined session.
 
-1. Ssh into sonic01 then invoke vtysh to access FRR
+1. Ssh into sonic02 then invoke vtysh to access FRR
 ```
-ssh cisco@192.168.122.101
+ssh cisco@192.168.122.102
 ```
 ```
 vtysh
@@ -128,12 +128,12 @@ vtysh
 
 Example:
 ```
-cisco@sonic01:~$ vtysh
+cisco@sonic02:~$ vtysh
 
 Hello, this is FRRouting (version 8.5.1).
 Copyright 1996-2005 Kunihiro Ishiguro, et al.
 
-sonic01# 
+sonic02# 
 ```
 
 2. Run some FRR CLI commands:
@@ -146,3 +146,43 @@ show bgp ipv6 unicast
 ping fc00:0:3::1
 ```
 
+## Configure sonic-rtr-leaf-1 with SONiC CLI
+
+1. Log into SONiC router *sonic-rtr-leaf-1*
+   ```
+   ssh cisco@192.168.122.101
+   ssh cisco@leaf-1
+   ```
+2. Configure *Loopback0* and add IPv4 and IPv6
+   ```
+   sudo config interface ip add Loopback0 10.0.0.1/32
+   sudo config interface ip add Loopback0 fc00:0:1::1/128
+   ```
+3. Configure Ethernet interface from *sonic-rtr-leaf-1* to *endpoint01*
+   ```
+   sudo config interface ip add Ethernet16 198.18.11.1/24
+   ```
+4. Create Port Channels to *sonic-rtr-spine-1* and *sonic-rtr-spine-2*
+   ```
+   sudo config portchannel add PortChannel1
+   sudo config portchannel add PortChannel2
+   ```
+5.  Configure Port Channel interface members
+    ```
+    sudo config portchannel member add PortChannel1 Ethernet0
+    sudo config portchannel member add PortChannel1 Ethernet4
+    sudo config portchannel member add PortChannel2 Ethernet8
+    sudo config portchannel member add PortChannel2 Ethernet12
+    ```
+6. Configure Port Channel IPs
+   ```
+   sudo config interface ip add PortChannel1 10.1.1.0/31
+   sudo config interface ip add PortChannel2 10.1.1.2/31
+   sudo config interface ip add PortChannel1 fc00:0:ffff::/127
+   sudo config interface ip add PortChannel2 fc00:0:ffff::2/127
+   ```
+
+7. Save configuration
+   ```
+   sudo config save
+   ```

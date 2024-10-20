@@ -52,7 +52,7 @@
       become: false
 
 - name: sonic-vs tasks
-  hosts: sonic-nodes
+  hosts: sonic-subset
   become: true
   tasks:
 
@@ -79,4 +79,7 @@
         dest: "/etc/sonic/frr/bgpd.conf"
         mode: 0644
 
-
+    - name: Load the FRR config through vtysh
+      command: vtysh -f /etc/sonic/frr/bgpd.conf
+      ignore_errors: yes
+      register: frr_load_result
