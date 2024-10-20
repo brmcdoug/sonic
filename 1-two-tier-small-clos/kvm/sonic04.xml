@@ -58,34 +58,6 @@
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
     </interface>
-    <interface type='udp'>
-      <source address='127.0.0.1' port='10407'>
-        <local address='127.0.0.1' port='10704'/>
-      </source>
-      <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x09' function='0x0'/>
-    </interface>
-    <interface type='udp'>
-      <source address='127.0.0.1' port='10408'>
-        <local address='127.0.0.1' port='10804'/>
-      </source>
-      <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x11' function='0x0'/>
-    </interface>
-    <interface type='udp'>
-      <source address='127.0.0.1' port='10409'>
-        <local address='127.0.0.1' port='10904'/>
-      </source>
-      <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x13' function='0x0'/>
-    </interface>
-    <interface type='udp'>
-      <source address='127.0.0.1' port='10410'>
-        <local address='127.0.0.1' port='11004'/>
-      </source>
-      <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x15' function='0x0'/>
-    </interface>
     <serial type='tcp'>
       <source mode='bind' host='127.0.0.1' service='8004'/>
       <protocol type='telnet'/>

@@ -29,7 +29,7 @@ cd 1-two-tier-small-clos/ansible/
 
 [Line 2](./ansible/deploy-small-clos.yaml#L78)
 
-3. Run the ansible deploy script. Note, the script will launch and configure three of the spine nodes and one of the leaf nodes, leaving sonic01 and sonic03 unconfigured. This guide will walk thru configuring them via the SONiC CLI
+3. Run the ansible deploy script. Note, the script will launch and configure three of the spine nodes and one of the leaf nodes, leaving sonic01 and sonic03 unconfigured. This guide will walk thru configuring them via the SONiC and FRR CLIs
    
    Note: adjust user/pw credentials as needed. The script will take about 3 minutes to run.
    ```
@@ -63,7 +63,8 @@ cd 1-two-tier-small-clos/ansible/
 
 ```
 ssh cisco@192.168.122.102
-
+```
+```
 show interfaces status
 show ip interfaces 
 ```
