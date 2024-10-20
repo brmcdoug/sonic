@@ -5,8 +5,9 @@ Instructions to deploy and work with the 2-tier small clos project
 - [Two Tier Small CLOS](#two-tier-small-clos)
   - [Contents](#contents)
   - [Ansible deploy script](#ansible-deploy-script)
-  - [Verify nodes](#verify-nodes)
+  - [Verify nodes and interfaces](#verify-nodes-and-interfaces)
     - [Management IP table](#management-ip-table)
+  - [SONiC FRR vtysh](#sonic-frr-vtysh)
 
 Topology:
 <img src="/diagrams/sonic-vs-2-tier-small-clos.png" width="800">
@@ -32,7 +33,7 @@ cd 1-two-tier-small-clos/ansible/
    ansible-playbook -i hosts deploy-small-clos.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
    ```
 
-### Verify nodes
+### Verify nodes and interfaces
 
 1. Once the script completes the sonic-vs nodes should all be up and running using the configurations found in the chosen config directory. Example [config-unnumbered](./config-unnumbered/) 
 
@@ -113,9 +114,15 @@ eth0                   192.168.122.101/24   up/up         N/A             N/A
 lo                     127.0.0.1/16         up/up         N/A             N/A
 ```
 
-2. Ssh into sonic01 then invoke vtysh to access FRR
+### SONiC FRR vtysh
+Per https://github.com/sonic-net/sonic-frr/blob/master/doc/user/vtysh.rst
+vtysh provides a combined frontend to all FRR daemons in a single combined session.
+
+1. Ssh into sonic01 then invoke vtysh to access FRR
 ```
 ssh cisco@192.168.122.101
+```
+```
 vtysh
 ```
 
@@ -129,11 +136,12 @@ Copyright 1996-2005 Kunihiro Ishiguro, et al.
 sonic01# 
 ```
 
-3. Run some FRR CLI commands:
+2. Run some FRR CLI commands:
 ```
 show run
 show int brief
 show bgp summary
+show bgp ipv4 unicast 
 show bgp ipv6 unicast 
 ping fc00:0:3::1
 ```
