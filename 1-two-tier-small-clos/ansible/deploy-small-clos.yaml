@@ -52,7 +52,7 @@
       become: false
 
 - name: sonic-vs tasks
-  hosts: sonic-subset
+  hosts: sonic-nodes
   become: true
   tasks:
 
