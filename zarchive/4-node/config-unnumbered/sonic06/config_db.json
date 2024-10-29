@@ -6,13 +6,13 @@
             "mac": "52:54:00:74:c1:06",
             "hostname": "sonic06",
             "type": "LeafRouter",
-            "bgp_asn": "65000",
+            "bgp_asn": "65006",
             "docker_routing_config_mode": "split"
         }
     },
     "LOOPBACK_INTERFACE": {
         "Loopback0|10.0.0.6/32": {},
-        "Loopback0|fc00:0:6::1/128": {}
+        "Loopback0|fcbb:bb01:6::1/128": {}
     },
 
     "INTERFACE": {
@@ -21,7 +21,9 @@
         },
         "Ethernet4": {
             "ipv6_use_link_local_only": "enable"
-        }
+        },
+        "Ethernet8|fcbb:bb01:8006::1/48": {},
+        "Ethernet12": {}
     },
     
     "PORT": {

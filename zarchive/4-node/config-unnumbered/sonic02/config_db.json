@@ -6,13 +6,13 @@
             "mac": "52:54:00:74:c1:02",
             "hostname": "sonic02",
             "type": "LeafRouter",
-            "bgp_asn": "65002",
+            "bgp_asn": "65000",
             "docker_routing_config_mode": "split"
         }
     },
     "LOOPBACK_INTERFACE": {
         "Loopback0|10.0.0.2/32": {},
-        "Loopback0|fc00:0:2::1/128": {}
+        "Loopback0|fcbb:bb01:2::1/128": {}
     },
 
     "INTERFACE": {
@@ -21,49 +21,7 @@
         },
         "Ethernet4": {
             "ipv6_use_link_local_only": "enable"
-        },
-        "Ethernet8": {
-            "ipv6_use_link_local_only": "enable"
-        },
-        "Ethernet12": {
-            "ipv6_use_link_local_only": "enable"
-        },
-        "Ethernet16": {
-            "vrf_name": "Vrf1"
-        },
-        "Ethernet16|10.101.2.1/24": {},
-        "Ethernet16|2001:0:101:2::1/64": {},
-        "Ethernet20": {
-            "vrf_name": "Vrf2"
-        },
-        "Ethernet20|10.102.2.1/24": {},
-        "Ethernet20|2001:0:102:2::1/64": {},
-        "Ethernet24": {},
-        "Ethernet28": {},
-        "Ethernet32": {}
-    },
-
-    "VLAN": {
-        "Vlan20": {
-            "vlanid": "20"
         }
-    },
-    "VLAN_INTERFACE": {
-        "Vlan20": {},
-        "Vlan20|10.20.1.1/24": {}
-    },
-    "VLAN_MEMBER": {
-        "Vlan20|Ethernet28": {
-            "tagging_mode": "untagged"
-        },
-        "Vlan20|Ethernet32": {
-            "tagging_mode": "untagged"
-        }
-    },
-
-    "VRF": {
-        "Vrf1": {},
-        "Vrf2": {}
     },
     
     "PORT": {
