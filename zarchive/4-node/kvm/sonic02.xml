@@ -45,38 +45,18 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
     </interface>
     <interface type='udp'>
-      <source address='127.0.0.1' port='10203'>
-        <local address='127.0.0.1' port='10302'/>
+      <source address='127.0.0.1' port='10201'>
+        <local address='127.0.0.1' port='10102'/>
       </source>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
     </interface>
     <interface type='udp'>
-      <source address='127.0.0.1' port='10204'>
-        <local address='127.0.0.1' port='10402'/>
+      <source address='127.0.0.1' port='10602'>
+        <local address='127.0.0.1' port='10206'/>
       </source>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
-    </interface>
-    <interface type='bridge'>
-      <source bridge='sonic02-16'/>
-      <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x13' function='0x0'/>
-    </interface>
-    <interface type='bridge'>
-      <source bridge='sonic02-20'/>
-      <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x15' function='0x0'/>
-    </interface>
-    <interface type='bridge'>
-      <source bridge='k8s-wkr-node01'/>
-      <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x17' function='0x0'/>
-    </interface>
-    <interface type='bridge'>
-      <source bridge='k8s-wkr-node02'/>
-      <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x19' function='0x0'/>
     </interface>
     <serial type='tcp'>
       <source mode='bind' host='127.0.0.1' service='8002'/>
