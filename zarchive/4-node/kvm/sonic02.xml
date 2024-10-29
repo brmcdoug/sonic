@@ -52,8 +52,8 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
     </interface>
     <interface type='udp'>
-      <source address='127.0.0.1' port='10602'>
-        <local address='127.0.0.1' port='10206'/>
+      <source address='127.0.0.1' port='10206'>
+        <local address='127.0.0.1' port='10602'/>
       </source>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
