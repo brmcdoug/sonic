@@ -73,5 +73,5 @@
       become: false
 
 - name: Run sonic config playbook
-  import_playbook: sonic-config-playbook.yml
+  import_playbook: sonic-config-playbook.yaml
   ignore_errors: yes

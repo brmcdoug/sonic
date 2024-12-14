@@ -29,4 +29,8 @@
       become: true
       ignore_errors: yes
 
+    - name: virsh list --all
+      command: "virsh list --all"
+      become: true
+      ignore_errors: yes
 
