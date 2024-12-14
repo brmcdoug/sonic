@@ -1,4 +1,4 @@
-# ansible-playbook -i hosts sonic-config-playbook.yaml -e "ansible_user=cisco ansible_ssh_pass=cisco123 ansible_sudo_pass=cisco123" -vv
+# ansible-playbook -i hosts sonic-config-playbook.yaml -e "ansible_user=admin ansible_ssh_pass=YourPaSsWoRd ansible_sudo_pass=YourPaSsWoRd" -vv
 
 ---
 
