@@ -28,26 +28,6 @@
       command: "sudo ../util/add-bridges.sh"
       ignore_errors: yes
 
-# - name: Define VMs from XML files
-#   hosts: localhost
-
-    # - name: ls -la
-    #   command: "ls -la ../kvm"
-    #   ignore_errors: yes
-
-    # - name: Find XML files in the kvm directory
-    #   find:
-    #     paths: ../kvm
-    #     patterns: "*.xml"
-    #   register: xml_files
-
-
-    # - name: Define VMs using virsh
-    #   command: virsh define ../kvm/{{ item.path | basename }}
-    #   with_items: "{{ xml_files.files }}"
-    #   when: xml_files.matched > 0
-    #   ignore_errors: yes
-
 - name: Define VMs from XML files
   hosts: localhost
   vars_files:
@@ -66,6 +46,16 @@
     - name: Start each sonic node
       command: "virsh start {{ item }}"
       with_items: "{{ sonic_nodes }}"
+
+    - name: virsh list --all
+      command: "virsh list --all"
+      become: true
+      ignore_errors: yes
+
+    - name: brctl show
+      command: "brctl show"
+      become: true
+      ignore_errors: yes
 
     - name: pause for 120 seconds to let sonic nodes boot
       pause:
