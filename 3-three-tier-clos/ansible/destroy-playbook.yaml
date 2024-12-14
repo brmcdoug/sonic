@@ -7,11 +7,17 @@
   hosts: localhost
   vars_files:
     - sonic_nodes.yaml
+
   tasks:
     - name: destroy each sonic node
-      command: "virsh destroy {{ item }}"
+      command: "virsh shutdown {{ item }}"
       with_items: "{{ sonic_nodes }}"
       ignore_errors: yes
+
+    - name: pause for 60 seconds to let sonic nodes shutdown
+      pause:
+        seconds: 60
+      become: false
 
     - name: Undefine sonic nodes
       command: "virsh undefine {{ item }}"
