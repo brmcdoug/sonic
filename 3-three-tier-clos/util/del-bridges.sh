@@ -1,21 +1,41 @@
 #!/bin/bash
- ip link set down sonic01-16
- ip link set down sonic01-20
- ip link set down sonic02-16
- ip link set down sonic02-20
- ip link set down k8s-cp-node00
- ip link set down k8s-wkr-node00
- ip link set down k8s-wkr-node01
- ip link set down k8s-wkr-node02
 
- brctl delbr sonic01-16
- brctl delbr sonic01-20
- brctl delbr sonic02-16
- brctl delbr sonic02-20
- brctl delbr k8s-cp-node00
- brctl delbr k8s-wkr-node00
- brctl delbr k8s-wkr-node01
- brctl delbr k8s-wkr-node02
+ ip link set down cp-node00-0
+ ip link set down cp-node00-1
+ ip link set down cp-node00-2
+ ip link set down cp-node00-3
+
+ ip link set down wkr-node01-0
+ ip link set down wkr-node01-1
+ ip link set down wkr-node01-2
+ ip link set down wkr-node01-3
+
+ ip link set down wkr-node02-0
+ ip link set down wkr-node02-1
+ ip link set down wkr-node02-2
+ ip link set down wkr-node02-3
+
+ ip link set down wkr-node03-0
+ ip link set down wkr-node03-1
+ ip link set down wkr-node03-2
+ ip link set down wkr-node03-3
+
+ brctl delbr cp-node00-0
+ brctl delbr cp-node00-1
+ brctl delbr cp-node00-2
+ brctl delbr cp-node00-3
+ brctl delbr wkr-node01-0
+ brctl delbr wkr-node01-1
+ brctl delbr wkr-node01-2
+ brctl delbr wkr-node01-3
+ brctl delbr wkr-node02-0
+ brctl delbr wkr-node02-1
+ brctl delbr wkr-node02-2
+ brctl delbr wkr-node02-3
+ brctl delbr wkr-node03-0
+ brctl delbr wkr-node03-1
+ brctl delbr wkr-node03-2
+ brctl delbr wkr-node03-3
 
 
 

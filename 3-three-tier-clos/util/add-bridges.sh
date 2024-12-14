@@ -1,20 +1,42 @@
 #!/bin/bash
 
- brctl addbr sonic01-16
- brctl addbr sonic01-20
- brctl addbr sonic02-16
- brctl addbr sonic02-20
- brctl addbr k8s-cp-node00
- brctl addbr k8s-wkr-node00
- brctl addbr k8s-wkr-node01
- brctl addbr k8s-wkr-node02
+ brctl addbr cp-node00-0
+ brctl addbr cp-node00-1
+ brctl addbr cp-node00-2
+ brctl addbr cp-node00-3
 
- ip link set up sonic01-16
- ip link set up sonic01-20
- ip link set up sonic02-16
- ip link set up sonic02-20
- ip link set up k8s-cp-node00
- ip link set up k8s-wkr-node00
- ip link set up k8s-wkr-node01
- ip link set up k8s-wkr-node02
+ brctl addbr wkr-node01-0
+ brctl addbr wkr-node01-1
+ brctl addbr wkr-node01-2
+ brctl addbr wkr-node01-3
+
+ brctl addbr wkr-node02-0
+ brctl addbr wkr-node02-1
+ brctl addbr wkr-node02-2
+ brctl addbr wkr-node02-3
+
+ brctl addbr wkr-node03-0
+ brctl addbr wkr-node03-1
+ brctl addbr wkr-node03-2
+ brctl addbr wkr-node03-3
+
+ ip link set up cp-node00-0
+ ip link set up cp-node00-1
+ ip link set up cp-node00-2
+ ip link set up cp-node00-3
+
+ ip link set up wkr-node01-0
+ ip link set up wkr-node01-1
+ ip link set up wkr-node01-2
+ ip link set up wkr-node01-3
+
+ ip link set up wkr-node02-0
+ ip link set up wkr-node02-1
+ ip link set up wkr-node02-2
+ ip link set up wkr-node02-3
+
+ ip link set up wkr-node03-0
+ ip link set up wkr-node03-1
+ ip link set up wkr-node03-2
+ ip link set up wkr-node03-3
 
