@@ -5,9 +5,9 @@ sonic_nodes:
   - sonic04
   - sonic05
   - sonic06
-  # - sonic07
-  # - sonic08
-  # - sonic09
-  # - sonic10
-  # - sonic11
-  # - sonic12
+  - sonic07
+  - sonic08
+  - sonic09
+  - sonic10
+  - sonic11
+  - sonic12
