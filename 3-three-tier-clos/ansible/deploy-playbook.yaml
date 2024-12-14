@@ -56,6 +56,7 @@
     - name: Define each sonic node
       command: "virsh define {{ item }}"
       with_items: "{{ virsh_define }}"
+      ignore_errors: yes
       
 - name: Start sonic nodes
   hosts: localhost
