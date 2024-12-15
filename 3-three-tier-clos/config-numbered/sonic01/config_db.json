@@ -1,8 +1,6 @@
 {
     "DEVICE_METADATA": {
         "localhost": {
-            "hwsku": "cisco-8101-p4-32x100-vs",
-            "platform": "x86_64-kvm_x86_64-r0",
             "mac": "52:54:00:74:c1:01",
             "hostname": "sonic01",
             "type": "LeafRouter",
@@ -16,25 +14,27 @@
     },
     "INTERFACE": {
         "Ethernet0": {},
-        "Ethernet0|fc00:0:ffff::/127": {},
+        "Ethernet0|2001:db8:1::/127": {},
         "Ethernet4": {},
-        "Ethernet4|fc00:0:ffff::2/127": {},
+        "Ethernet4|2001:db8:1::2/127": {},
         "Ethernet8": {},
-        "Ethernet8|fc00:0:ffff::4/127": {},
+        "Ethernet8|2001:db8:1::4/127": {},
         "Ethernet12": {},
-        "Ethernet12|fc00:0:ffff::6/127": {},
-        "Ethernet16": {
+        "Ethernet12|2001:db8:1::6/127": {},
+        "Ethernet16": {},
+        "Ethernet16|fc00:0:f800:0::1/64": {
             "vrf_name": "Vrf1"
         },
-        "Ethernet16|10.101.1.1/24": {},
-        "Ethernet16|2001:0:101:1::1/64": {},
-        "Ethernet20": {
+        "Ethernet16|10.101.0.1/24": {
+            "vrf_name": "Vrf1"
+        },
+        "Ethernet20": {},
+        "Ethernet20|fc00:0:f800:1::1/64": {
             "vrf_name": "Vrf2"
         },
-        "Ethernet20|10.102.1.1/24": {},
-        "Ethernet20|2001:0:102:1::1/64": {},
-        "Ethernet24": {},
-        "Ethernet28": {}
+        "Ethernet20|10.101.1.1/24": {
+            "vrf_name": "Vrf2"
+        }
     },
 
     "VRF": {

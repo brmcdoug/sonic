@@ -2,7 +2,7 @@
   <name>sonic09</name>
   <memory unit='KiB'>4096000</memory>
   <currentMemory unit='KiB'>4096000</currentMemory>
-  <vcpu placement='static'>1</vcpu>
+  <vcpu placement='static'>2</vcpu>
   <resource>
     <partition>/machine</partition>
   </resource>
